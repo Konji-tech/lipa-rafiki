@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- library imports -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.0.0/dist/iconify-icon.min.js"></script>
+  </head>
+
+  <body class="flex h-screen w-screen overflow-hidden bg-slate-100">
+    <!-- side bar -->
+    <nav
+      class="flex flex-col justify-between items-center bg-white min-w-fit py-8 px-2 border-r border-red-600"
+    >
+      <ul class="w-full grid gap-3">
+        <!-- LOGO -->
+        <div class="flex justify-center mb-10">
+          <iconify-icon
+            icon="icon-park:butterfly"
+            class="text-[60px]"
+          ></iconify-icon>
+        </div>
+
+        <li
+          class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2"
+        >
+          <iconify-icon
+            icon="solar:wallet-2-line-duotone"
+            class="text-3xl"
+          ></iconify-icon>
+          <a href="/">My Wallet</a>
+        </li>
+        <li
+          class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2"
+        >
+          <iconify-icon
+            icon="solar:card-send-line-duotone"
+            class="text-3xl"
+          ></iconify-icon>
+          <a href="/send">Send Money</a>
+        </li>
+        <li
+          class="bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center gap-2"
+        >
+          <iconify-icon
+            icon="solar:card-recive-bold-duotone"
+            class="text-3xl"
+          ></iconify-icon>
+          <a href="/withdraw">Withdraw Cash</a>
+        </li>
+      </ul>
+      <ul class="w-full grid gap-3">
+        <li
+          class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2"
+        >
+          <iconify-icon
+            icon="solar:settings-line-duotone"
+            class="text-3xl"
+          ></iconify-icon>
+          <a href="#">Settings</a>
+        </li>
+        <hr />
+        <li
+          class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2"
+        >
+          <iconify-icon icon="lucide:rabbit" class="text-3xl"></iconify-icon>
+          <a href="#">User name</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- main content -->
+    <main class="overflow-auto p-4">
+      <section>
+        <h1>Withdraw Cash</h1>
+      </section>
+    </main>
+  </body>
+</html>
