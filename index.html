@@ -8,12 +8,15 @@
     <!-- library imports -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.0.0/dist/iconify-icon.min.js"></script>
+
+    <!-- styling -->
+    <style rel="stylesheet" href="./styles.css"></style>
   </head>
 
   <body class="flex h-screen w-screen overflow-hidden bg-slate-100">
     <!-- side bar -->
     <nav
-      class="flex flex-col justify-between items-center bg-white min-w-fit py-8 px-2 border-r border-red-600"
+      class="flex flex-col justify-between items-center bg-white min-w-fit py-8 px-2 border-r border-gray-300"
     >
       <ul class="w-full grid gap-3">
         <!-- LOGO -->
@@ -73,35 +76,124 @@
     </nav>
 
     <!-- main content -->
-    <main class="overflow-auto p-4">
-      <section>
-        <h1>My Wallet</h1>
+    <main class="w-full overflow-auto py-4 px-8 flex flex-col gap-8">
+      <section class="flex flex-col gap-1">
+        <h1 class="text-3xl font-bold">My Wallet</h1>
         <p>Keep track of your financial plan</p>
       </section>
 
       <!-- cards section -->
-      <section>
+      <section class="flex gap-2">
         <!-- balance card -->
-        <div>
-          <h6>👋 Hi User Name!</h6>
-          <h2>$0.00</h2>
+        <div
+          class="min-w-[300px] flex-1 p-6 border rounded-xl bg-white flex flex-col gap-6"
+        >
+          <h6 class="text-xl font-bold">👋 Hi User Name!</h6>
+          <h2 class="text-4xl font-light text-gray-400">$0.00</h2>
         </div>
 
         <!-- transaction options -->
-        <div>
-          <div><span>Send Money</span></div>
-          <div><span>Withdraw Cash</span></div>
+        <div class="bg-white border rounded-xl grid grid-cols-2">
+          <div class="p-6 border-r flex flex-col items-center gap-8">
+            <div
+              class="bg-green-500/20 rounded-full aspect-square p-4 flex items-center"
+            >
+              <iconify-icon
+                icon="solar:upload-twice-square-line-duotone"
+                class="text-4xl text-green-700"
+              ></iconify-icon>
+            </div>
+            <span class="text-gray-400">Send Money</span>
+          </div>
+          <div class="p-6 border-r flex flex-col items-center gap-8">
+            <div
+              class="bg-blue-900/20 rounded-full aspect-square p-4 flex items-center"
+            >
+              <iconify-icon
+                icon="solar:download-twice-square-line-duotone"
+                class="text-4xl text-blue-700"
+              ></iconify-icon>
+            </div>
+
+            <span class="text-gray-400">Withdraw Cash</span>
+          </div>
         </div>
       </section>
 
       <!-- search section -->
-      <section>
-        <h2>Recent Transactions</h2>
-        <input type="text" placeholder="Search" />
+      <section class="flex justify-between gap-1">
+        <h2 class="text-2xl font-bold">Recent Transactions</h2>
+        <div class="relative h-[48px]">
+          <input
+            class="py-2 px-4 rounded-full border h-full"
+            type="text"
+            placeholder="Search"
+          />
+          <iconify-icon
+            icon="solar:minimalistic-magnifer-linear"
+            class="text-xl absolute top-[14px] right-[12px] text-gray-400"
+          ></iconify-icon>
+        </div>
       </section>
 
       <!-- table section -->
-      <section></section>
+      <section class="bg-white pb-2 rounded-xl border overflow-hidden">
+        <!-- table -->
+        <table class="w-full">
+          <thead class="overflow-hidden bg-blue-600 text-white">
+            <th class="p-4 text-left">Lorem.</th>
+            <th class="text-left">Molestias?</th>
+            <th class="text-left">Molestias.</th>
+            <th class="text-left">Dolore!</th>
+            <th class="text-left">Eveniet?</th>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td class="pl-4 py-2">Lorem, ipsum.</td>
+              <td class="py-2">Culpa, magni.</td>
+              <td class="py-2">Aliquid, ratione.</td>
+              <td class="py-2">Nam, praesentium.</td>
+              <td class="py-2">Sint, laudantium.</td>
+            </tr>
+            <tr>
+              <td class="pl-4 py-2">Lorem, ipsum.</td>
+              <td class="py-2">Quo, nesciunt!</td>
+              <td class="py-2">Modi, tempora.</td>
+              <td class="py-2">Consectetur, totam!</td>
+              <td class="py-2">Provident, ipsum!</td>
+            </tr>
+            <tr>
+              <td class="pl-4 py-2">Lorem, ipsum.</td>
+              <td class="py-2">Quibusdam, recusandae.</td>
+              <td class="py-2">Blanditiis, molestias?</td>
+              <td class="py-2">Adipisci, doloremque.</td>
+              <td class="py-2">Eveniet, ut.</td>
+            </tr>
+            <tr>
+              <td class="pl-4 py-2">Lorem, ipsum.</td>
+              <td class="py-2">Sit, rerum.</td>
+              <td class="py-2">Corporis, quidem!</td>
+              <td class="py-2">Autem, odit!</td>
+              <td class="py-2">Nesciunt, et!</td>
+            </tr>
+            <tr>
+              <td class="pl-4 py-2">Lorem, ipsum.</td>
+              <td class="py-2">Et, minus.</td>
+              <td class="py-2">Id, at?</td>
+              <td class="py-2">Consectetur, perferendis?</td>
+              <td class="py-2">Quae, beatae.</td>
+            </tr>
+            <tr>
+              <td class="pl-4 py-2">Lorem, ipsum.</td>
+              <td class="py-2">Sequi, consequuntur!</td>
+              <td class="py-2">Minus, officiis.</td>
+              <td class="py-2">Repudiandae, maxime.</td>
+              <td class="py-2">In, est.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
       <!-- form -->
     </main>
