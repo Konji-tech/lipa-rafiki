@@ -13,24 +13,55 @@
   <body class="flex h-screen w-screen overflow-hidden bg-slate-100">
     <!-- side bar -->
     <nav
-      class="flex flex-col justify-between items-center bg-white min-w-[200px] py-8 px-2 border-r border-red-600"
+      class="flex flex-col justify-between items-center bg-white min-w-fit py-8 px-2 border-r border-red-600"
     >
-      <ul class="w-full grid">
+      <ul class="w-full grid gap-3">
         <h1>Logo</h1>
-        <li class="bg-black text-white py-2 px-4 rounded-lg">
+        <li
+          class="bg-black text-white py-2 px-4 rounded-lg flex items-center gap-2"
+        >
+          <iconify-icon
+            icon="solar:wallet-2-bold-duotone"
+            class="text-3xl"
+          ></iconify-icon>
           <a href="#">My Wallet</a>
         </li>
-        <li class="bg-black text-white py-2 px-4 rounded-lg">
+        <li
+          class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2"
+        >
+          <iconify-icon
+            icon="solar:card-send-line-duotone"
+            class="text-3xl"
+          ></iconify-icon>
           <a href="#">Send Money</a>
         </li>
-        <li class="bg-black text-white py-2 px-4 rounded-lg">
+        <li
+          class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2"
+        >
+          <iconify-icon
+            icon="solar:card-recive-line-duotone"
+            class="text-3xl"
+          ></iconify-icon>
           <a href="#">Withdraw Cash</a>
         </li>
       </ul>
-      <ul>
-        <li><a href="#">Settings</a></li>
+      <ul class="w-full grid gap-3">
+        <li
+          class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2"
+        >
+          <iconify-icon
+            icon="solar:settings-line-duotone"
+            class="text-3xl"
+          ></iconify-icon>
+          <a href="#">Settings</a>
+        </li>
         <hr />
-        <li><a href="#">User name</a></li>
+        <li
+          class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2"
+        >
+          <iconify-icon icon="lucide:rabbit" class="text-3xl"></iconify-icon>
+          <a href="#">User name</a>
+        </li>
       </ul>
     </nav>
 
