@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,60 +15,33 @@
 
   <body class="flex h-screen w-screen overflow-hidden bg-slate-100">
     <!-- side bar -->
-    <nav
-      class="flex flex-col justify-between items-center bg-white min-w-fit py-8 px-2 border-r"
-    >
+    <nav class="flex flex-col justify-between items-center bg-white min-w-fit py-8 px-2 border-r">
       <ul class="w-full grid gap-3">
         <!-- LOGO -->
         <div class="flex justify-center mb-10">
-          <iconify-icon
-            icon="icon-park:butterfly"
-            class="text-[60px]"
-          ></iconify-icon>
+          <iconify-icon icon="icon-park:butterfly" class="text-[60px]"></iconify-icon>
         </div>
 
-        <li
-          class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2"
-        >
-          <iconify-icon
-            icon="solar:wallet-2-line-duotone"
-            class="text-3xl"
-          ></iconify-icon>
+        <li class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2">
+          <iconify-icon icon="solar:wallet-2-line-duotone" class="text-3xl"></iconify-icon>
           <a href="/">My Wallet</a>
         </li>
-        <li
-          class="bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center gap-2"
-        >
-          <iconify-icon
-            icon="solar:card-send-bold-duotone"
-            class="text-3xl"
-          ></iconify-icon>
+        <li class="bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center gap-2">
+          <iconify-icon icon="solar:card-send-bold-duotone" class="text-3xl"></iconify-icon>
           <a href="/send">Send Money</a>
         </li>
-        <li
-          class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2"
-        >
-          <iconify-icon
-            icon="solar:card-recive-line-duotone"
-            class="text-3xl"
-          ></iconify-icon>
+        <li class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2">
+          <iconify-icon icon="solar:card-recive-line-duotone" class="text-3xl"></iconify-icon>
           <a href="/withdraw">Withdraw Cash</a>
         </li>
       </ul>
       <ul class="w-full grid gap-3">
-        <li
-          class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2"
-        >
-          <iconify-icon
-            icon="solar:settings-line-duotone"
-            class="text-3xl"
-          ></iconify-icon>
+        <li class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2">
+          <iconify-icon icon="solar:settings-line-duotone" class="text-3xl"></iconify-icon>
           <a href="#">Settings</a>
         </li>
         <hr />
-        <li
-          class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2"
-        >
+        <li class="transition-all hover:bg-black/10 text-black/50 py-2 px-4 rounded-lg flex items-center gap-2">
           <iconify-icon icon="lucide:rabbit" class="text-3xl"></iconify-icon>
           <a href="#">User name</a>
         </li>
@@ -85,9 +58,7 @@
       <!-- cards section -->
       <section class="flex w-full">
         <!-- balance card -->
-        <div
-          class="w-full flex-1 p-6 border rounded-xl bg-white flex flex-col gap-6"
-        >
+        <div class="w-full flex-1 p-6 border rounded-xl bg-white flex flex-col gap-6">
           <h6 class="text-xl font-bold">Balance</h6>
           <h2 class="text-4xl font-light text-gray-400">$0.00</h2>
         </div>
@@ -95,43 +66,60 @@
 
       <!-- transaction form -->
       <section class="bg-white border rounded-xl p-4">
-        <form class="flex flex-col gap-4">
+        <form class="flex flex-col gap-4" id="data-form">
           <div class="grid gap-2">
-            <label class="px-4 text-gray-600">Amount to send</label>
-            <input
-              class="py-2 px-4 rounded-full border h-full"
-              type="text"
-              placeholder="KES 0.00"
-            />
+            <label class="px-4 text-gray-600">Send to who</label>
+            <input id="name" class="py-2 px-4 rounded-full border h-full" type="text" placeholder="KES 0.00" />
           </div>
 
           <div class="grid gap-2">
-            <label class="px-4 text-gray-600">Who to send to</label>
-            <div class="relative h-[48px]">
-              <select
-                class="py-2 px-12 rounded-full border h-full w-full bg-transparent"
-              >
-                <option value="">Lorem, ipsum.</option>
-                <option value="">Adipisci, facilis?</option>
-                <option value="">Error, facere.</option>
-                <option value="">Impedit, incidunt!</option>
-                <option value="">Commodi, dolorum.</option>
-              </select>
-              <iconify-icon
-                icon="solar:minimalistic-magnifer-linear"
-                class="text-xl absolute top-[14px] left-[12px] text-gray-400"
-              ></iconify-icon>
-            </div>
+            <label class="px-4 text-gray-600">Amount to send</label>
+            <input id="amount" class="py-2 px-4 rounded-full border h-full" type="text" placeholder="KES 0.00" />
           </div>
 
           <!-- send button -->
-          <button
-            class="bg-blue-600 py-2 px-4 rounded-full text-white font-bold"
-          >
-            Send money
-          </button>
+          <button class="bg-blue-600 py-2 px-4 rounded-full text-white font-bold" type="submit" onclick="showAlert()">Send money</button>
         </form>
       </section>
     </main>
+
+    <!-- LSCRIPT -->
+    <script>
+      document.getElementById("data-form").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Retrieve input values
+        var name = document.getElementById("name").value;
+        var amount = document.getElementById("amount").value;
+
+        // Generate a unique ID
+        var id = generateID();
+
+        // Create an object to represent the new entry
+        var newEntry = { id: id, name: name, amount: amount };
+
+        // Save data to local storage
+        saveToLocalStorage(newEntry);
+
+        // Redirect to the page with the table
+        window.location.href = "index.html";
+      });
+
+      // Function to save data to local storage
+      function saveToLocalStorage(data) {
+        var storedData = localStorage.getItem("Transaction-table");
+        var dataArray = storedData ? JSON.parse(storedData) : [];
+        dataArray.push(data);
+        localStorage.setItem("Transaction-table", JSON.stringify(dataArray));
+      }
+
+      // Function to generate a unique ID
+      function generateID() {
+        return "_" + Math.random().toString(36).substr(2, 9);
+      }
+      function showAlert() {
+        alert("Sent!");
+      }
+    </script>
   </body>
 </html>

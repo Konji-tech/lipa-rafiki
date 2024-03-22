@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Pesa</title>
 
     <!-- library imports -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -139,63 +139,50 @@
       <!-- table section -->
       <section class="bg-white pb-2 rounded-xl border overflow-hidden">
         <!-- table -->
-        <table class="w-full">
+        <table class="w-full"id="Transaction-table">
           <thead class="overflow-hidden bg-blue-600 text-white">
-            <th class="p-4 text-left">Lorem.</th>
-            <th class="text-left">Molestias?</th>
-            <th class="text-left">Molestias.</th>
-            <th class="text-left">Dolore!</th>
-            <th class="text-left">Eveniet?</th>
+            <th class="p-4 text-left">Transaction ID</th>
+            <th class="text-left">Name</th>
+            <th class="text-left">Amount</th>
+            
           </thead>
 
-          <tbody>
-            <tr>
-              <td class="pl-4 py-2">Lorem, ipsum.</td>
-              <td class="py-2 px-2">Culpa, magni.</td>
-              <td class="py-2 px-2">Aliquid, ratione.</td>
-              <td class="py-2 px-2">Nam, praesentium.</td>
-              <td class="py-2 px-2">Sint, laudantium.</td>
-            </tr>
-            <tr>
-              <td class="pl-4 py-2">Lorem, ipsum.</td>
-              <td class="py-2 px-2">Quo, nesciunt!</td>
-              <td class="py-2 px-2">Modi, tempora.</td>
-              <td class="py-2 px-2">Consectetur, totam!</td>
-              <td class="py-2 px-2">Provident, ipsum!</td>
-            </tr>
-            <tr>
-              <td class="pl-4 py-2">Lorem, ipsum.</td>
-              <td class="py-2 px-2">Quibusdam, recusandae.</td>
-              <td class="py-2 px-2">Blanditiis, molestias?</td>
-              <td class="py-2 px-2">Adipisci, doloremque.</td>
-              <td class="py-2 px-2">Eveniet, ut.</td>
-            </tr>
-            <tr>
-              <td class="pl-4 py-2">Lorem, ipsum.</td>
-              <td class="py-2 px-2">Sit, rerum.</td>
-              <td class="py-2 px-2">Corporis, quidem!</td>
-              <td class="py-2 px-2">Autem, odit!</td>
-              <td class="py-2 px-2">Nesciunt, et!</td>
-            </tr>
-            <tr>
-              <td class="pl-4 py-2">Lorem, ipsum.</td>
-              <td class="py-2 px-2">Et, minus.</td>
-              <td class="py-2 px-2">Id, at?</td>
-              <td class="py-2 px-2">Consectetur, perferendis?</td>
-              <td class="py-2 px-2">Quae, beatae.</td>
-            </tr>
-            <tr>
-              <td class="pl-4 py-2">Lorem, ipsum.</td>
-              <td class="py-2 px-2">Sequi, consequuntur!</td>
-              <td class="py-2 px-2">Minus, officiis.</td>
-              <td class="py-2 px-2">Repudiandae, maxime.</td>
-              <td class="py-2 px-2">In, est.</td>
+          <tbody id="table-body">
+            <!-- data will be populated here -->
             </tr>
           </tbody>
         </table>
       </section>
 
-      <!-- form -->
+     <!-- script -->
     </main>
+    <script>
+      // Populate table on page load
+      populateTable();
+  
+      // Function to populate table from local storage
+      function populateTable() {
+        var storedData = localStorage.getItem('Transaction-table');
+        var tableBody = document.getElementById('table-body');
+  
+        // Clear existing rows
+        tableBody.innerHTML = '';
+  
+        if (storedData) {
+          var dataArray = JSON.parse(storedData);
+  
+          // Populate table with data
+          dataArray.forEach(function(item) {
+            var row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${item.id}</td>
+              <td>${item.name}</td>
+              <td>${item.amount}</td>
+            `;
+            tableBody.appendChild(row);
+          });
+        }
+      }
+    </script>
   </body>
 </html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Populating HTML Table with JavaScript Object Arrays</title>
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
+</head>
+<body>
+
+<h2>Sample Table</h2>
+<table id="myTable">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Country</th>
+  </tr>
+</table>
+
+<script>
+  // Sample data array of objects
+  /*var people = [
+    { name: "John", age: 30, country: "USA" },
+    { name: "Alice", age: 25, country: "UK" },
+    { name: "Bob", age: 35, country: "Canada" }
+  ];*/
+
+  const transfers = [];
+  class Transfer {
+  sender;
+  receiver;
+  amount;
+  transactionCost;
+
+  constructor(sender, receiver, amount) {
+    this.sender = sender;
+    this.receiver = receiver;
+    this.amount = amount;
+    this.transactionCost = getTransactionCostForAmount(amount);
+
+    const senderName = getNameByPhoneNumber(sender);
+    const receiverName = getNameByPhoneNumber(receiver);
+
+    console.log(`${senderName} has sent KSH ${amount} to ${receiverName} Transaction Cost : KSH ${this.transactionCost}`);
+
+    transfers.push(this);
+  }
+}
+
+
+  // Get the table body element
+  var tableBody = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+
+  // Loop through the array of objects and populate the table
+  people.forEach(function(person) {
+    var newRow = tableBody.insertRow(tableBody.rows.length); // Insert a new row
+    var cell1 = newRow.insertCell(0); // Insert cells
+    var cell2 = newRow.insertCell(1);
+    var cell3 = newRow.insertCell(2);
+
+    // Assign values from the object properties to the cells
+    cell1.textContent = person.name;
+    cell2.textContent = person.age;
+    cell3.textContent = person.country;
+  });
+</script>
+
+</body>
+</html>
