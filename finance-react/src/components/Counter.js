@@ -22,4 +22,6 @@ function Counter() {
   );
 }
 
+refc
+
 export default Counter;

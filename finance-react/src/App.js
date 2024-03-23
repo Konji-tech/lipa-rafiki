@@ -1,5 +1,7 @@
 import NavBar from "./components/Navbar";
+import Header from "./components/Header";
 
+import WalletCards from "./components/WalletCards";
 function App() {
   return (
     <div>
@@ -7,6 +9,8 @@ function App() {
 
       <h1>This is my APP!</h1>
       <hr />
+      <Header></Header>
+      <WalletCards />
     </div>
   );
 }
