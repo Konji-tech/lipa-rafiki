@@ -1,18 +1,12 @@
-import "./App.css";
-
-import MyCounterComponent from "./components/Counter";
+import NavBar from "./components/Navbar";
 
 function App() {
   return (
     <div>
+      <NavBar />
+
       <h1>This is my APP!</h1>
       <hr />
-
-      <MyCounterComponent />
-      <MyCounterComponent />
-      <MyCounterComponent />
-      <MyCounterComponent />
-      <MyCounterComponent />
     </div>
   );
 }
