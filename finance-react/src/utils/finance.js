@@ -2,15 +2,17 @@
 // [x] transfer funds between accounts
 // [x] display reports
 
+import * as cache from "./cache";
+
 //custom feature:
 // [x] create groups
 // [x] Bundle group payment
 
 //act as database
-const contacts = [];
-const deposits = [];
-const withdrawals = [];
-const transfers = [];
+const contacts = cache.getContacts();
+const deposits = cache.getDeposits();
+const withdrawals = cache.getWithdrawals();
+const transfers = cache.getTransfers();
 
 //helper functions
 export function getTotalAmount(accumulator, element) {
@@ -43,7 +45,12 @@ export class Contact {
     this.firstName = fname;
     this.lastName = lname;
 
+    this.save();
+  }
+
+  save() {
     contacts.push(this);
+    cache.setCache("contacts", contacts);
   }
 
   get deposits() {
@@ -150,20 +157,28 @@ export class Transfer {
       `${senderName} has sent KSH ${amount} to ${receiverName} Transaction Cost : KSH ${this.transactionCost}`,
     );
 
+    this.save();
+  }
+
+  save() {
     transfers.push(this);
+    cache.setCache("transfers", transfers);
   }
 }
 
 export class Deposit {
+  date;
   phoneNumber;
   amount;
   constructor(phone, amount) {
     this.phoneNumber = phone;
     this.amount = amount;
+    this.date = new Date();
     this.save();
   }
   save() {
     deposits.push(this);
+    cache.setCache("deposits", deposits);
   }
 }
 
@@ -173,6 +188,7 @@ export class Withdrawal extends Deposit {
   }
   save() {
     withdrawals.push(this);
+    cache.setCache("withdrawals", withdrawals);
   }
 }
 

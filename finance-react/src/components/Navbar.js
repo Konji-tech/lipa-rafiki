@@ -25,19 +25,18 @@ const links = [
 ];
 
 function NavBar() {
-  const navigation = useNavigation();
   const location = useLocation();
 
   return (
-    <div class="bg-light-bg p-4 flex flex-col gap-2 border-r">
+    <div class="bg-light-bg p-4 flex flex-col gap-2 border-r-2 border-black">
       {links.map((link, index) => {
         return (
           <Link
             to={link.route}
-            className={`flex items-center gap-4 px-4 py-2 rounded-lg border border-transparent ${
+            className={`flex items-center gap-4 px-4 py-2 rounded-xl border-2 ${
               location?.pathname === link.route
-                ? "bg-white text-black shadow-sm border-black"
-                : "text-black"
+                ? "bg-white text-black shadow-lg border-black"
+                : "text-black border-transparent"
             }`}
             key={index}
           >
