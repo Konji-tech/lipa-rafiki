@@ -10,11 +10,11 @@ function App() {
   });
 
   return (
-    <div className="grid grid-cols-[240px,1fr] h-screen w-screen overflow-hidden">
+    <div className="grid grid-cols-[100px,1fr] md:grid-cols-[240px,1fr] h-screen w-screen overflow-hidden transition-all">
       {/* the nav bar is shared*/}
       <NavBar />
 
-      <div className="bg-bg">
+      <div className="bg-bg overflow-auto">
         {/* Children go here */}
         <div class="max-w-screen-lg mx-auto">
           <Outlet />

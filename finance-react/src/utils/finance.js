@@ -44,13 +44,13 @@ export class Contact {
     this.phoneNumber = phone;
     this.firstName = fname;
     this.lastName = lname;
-
-    this.save();
   }
 
   save() {
-    contacts.push(this);
-    cache.setCache("contacts", contacts);
+    if (!contacts.find((e) => e.phoneNumber === this.phoneNumber)) {
+      contacts.push(this);
+      cache.setCache("contacts", contacts);
+    }
   }
 
   get deposits() {

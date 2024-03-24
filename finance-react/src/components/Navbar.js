@@ -39,11 +39,12 @@ function NavBar() {
                 : "text-black border-transparent"
             }`}
             key={index}
+            title={link.name}
           >
             <span className="text-3xl h-full flex items-center">
               <iconify-icon icon={`${link.icon}-line-duotone`}></iconify-icon>
             </span>
-            <span>{link.name} </span>
+            <span className="hidden md:block">{link.name}</span>
           </Link>
         );
       })}

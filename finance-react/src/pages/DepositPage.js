@@ -6,18 +6,25 @@ import { formatDate } from "../utils/strings";
 export default function DepositPage() {
   const [deposits, setDeposits] = useState(cache.getDeposits());
 
-  const [phoneNumber, setPhoneNumber] = useState("+254320323323");
+  const [phoneNumber, setPhoneNumber] = useState(cache.userPhoneNumber);
   const [amount, setAmount] = useState(0);
 
   function handleSubmit(e) {
     // prevent the page from reloading
     e.preventDefault();
 
-    // make a deposit
-    const deposit = new Deposit(phoneNumber, amount);
+    if (amount <= 0) {
+      alert("Please enter a valid amount");
+      return;
+    }
 
-    // refresh list of deposits
+    // make a deposit
+    const deposit = new Deposit(phoneNumber, parseFloat(amount));
+    alert(`KES ${deposit.amount} deposited to your account`);
+
+    // refresh page data
     setDeposits(cache.getDeposits());
+    setAmount(0);
   }
 
   return (
@@ -35,7 +42,7 @@ export default function DepositPage() {
             disabled
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            className="px-4 py-2 bg-white border-2 border-black rounded"
+            className="px-4 py-2 bg-bg  cursor-not-allowed border-2 border-black rounded"
           />
         </div>
 
@@ -53,7 +60,7 @@ export default function DepositPage() {
         {/* SUBMIT */}
         <button
           type="submit"
-          class="bg-primary px-4 py-2 rounded-xl border-2 border-black hover:scale-[1.01]"
+          class="bg-primary px-4 py-2 rounded-xl border-2 border-black hover:scale-[1.01] text-white font-semibold uppercase"
         >
           Initiate transaction
         </button>
@@ -80,7 +87,7 @@ function DepositSection({ deposits }) {
 
 function DepositCard({ deposit }) {
   return (
-    <div className="py-4 px-2 flex border-black/20 border-b-2  last:border-b-0 justify-between">
+    <div className="py-4 px-2 flex border-black/20 border-b-2  last:border-b-0 justify-between flex-wrap gap-4">
       <div class="flex flex-col gap-2">
         <span className="text-2xl font-semibold">KES {deposit.amount}</span>
         <span>{deposit.phoneNumber}</span>
