@@ -1,27 +1,18 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import NavBar from "./components/Navbar";
-import WalletPage from "./pages/WalletPage";
-import SendPage from "./pages/SendPage";
-import WithdrawPage from "./pages/WithdrawPage";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="flex h-screen w-screen overflow-hidden">
-        {/* the nav bar is shared*/}
-        <NavBar />
+    <div className="grid grid-cols-[240px,1fr] h-screen w-screen overflow-hidden">
+      {/* the nav bar is shared*/}
+      <NavBar />
 
-        <div>
-          {/* Routes */}
-          <Routes>
-            <Route path="/" element={<WalletPage />} />
-            <Route path="/send" element={<SendPage />} />
-            <Route path="/withdraw" element={<WithdrawPage />} />
-          </Routes>
-        </div>
+      <div>
+        {/* Children go here */}
+        <Outlet />
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
 

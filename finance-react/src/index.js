@@ -2,8 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import "iconify-icon";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { RouterProvider } from "react-router-dom";
+import routes from "./router";
 
 // JSX << javascript with XML
 // CRA (create react app) - scaffolds a Single Page Application (SPA)
@@ -28,8 +29,8 @@ import reportWebVitals from "./reportWebVitals";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <RouterProvider router={routes} />
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
