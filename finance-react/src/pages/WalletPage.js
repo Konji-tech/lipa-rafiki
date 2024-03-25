@@ -2,7 +2,7 @@ import WalletCards from "../components/WalletCards";
 
 export default function WalletPage() {
   return (
-    <div class="flex flex-col">
+    <div className="flex flex-col">
       <WalletCards />
     </div>
   );

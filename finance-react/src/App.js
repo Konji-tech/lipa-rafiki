@@ -16,7 +16,7 @@ function App() {
 
       <div className="bg-bg overflow-auto">
         {/* Children go here */}
-        <div class="max-w-screen-lg mx-auto">
+        <div className="max-w-screen-lg mx-auto">
           <Outlet />
         </div>
       </div>

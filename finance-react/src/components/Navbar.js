@@ -28,7 +28,7 @@ function NavBar() {
   const location = useLocation();
 
   return (
-    <div class="bg-light-bg p-4 flex flex-col gap-2 border-r-2 border-black">
+    <div className="bg-light-bg p-4 flex flex-col gap-2 border-r-2 border-black">
       {links.map((link, index) => {
         return (
           <Link
