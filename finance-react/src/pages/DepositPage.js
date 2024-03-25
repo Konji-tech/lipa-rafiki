@@ -22,7 +22,6 @@ export default function DepositPage() {
 
 		// make a deposit
 		const deposit = new Deposit(phoneNumber, parseFloat(amount));
-		alert(`KES ${deposit.amount} deposited to your account`);
 		deposit.save();
 
 		// refresh page data
