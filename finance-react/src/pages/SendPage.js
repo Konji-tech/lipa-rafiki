@@ -5,12 +5,11 @@ import {
 	getContacts,
 	getCurrentUserContact,
 	getTransfers,
-	setCache,
 	userPhoneNumber,
 } from "../utils/cache";
 
 import { getNameByPhoneNumber, Transfer } from "../utils/finance";
-import { formatDate } from "../utils/strings";
+import { formatDate, formatRelativeTime } from "../utils/strings";
 
 export default function SendPage() {
 	const user = getCurrentUserContact();
@@ -52,7 +51,7 @@ export default function SendPage() {
 	}
 
 	return (
-		<div className="flex flex-col gap-8 p-8">
+		<div className="flex flex-col gap-8 px-4 py-8">
 			<BalanceCard />
 
 			<form
@@ -113,9 +112,11 @@ export default function SendPage() {
 function TransferCards({ transfers }) {
 	return (
 		<section className="flex flex-col rounded-xl border-2 border-black bg-light-bg p-4">
-			{transfers.map((transfer, index) => {
-				return <TransferCard key={index} transfer={transfer} />;
-			})}
+			{transfers
+				.sort((a, b) => a?.date < b?.date)
+				.map((transfer, index) => {
+					return <TransferCard key={index} transfer={transfer} />;
+				})}
 		</section>
 	);
 }
@@ -131,9 +132,14 @@ function TransferCard({ transfer }) {
 				<span>{transfer.receiver}</span>
 			</div>
 
-			<span className="self-end text-black/50">
-				{formatDate(transfer?.date)}
-			</span>
+			<div className="flex flex-col items-end gap-2 self-end">
+				<span className="text-xs text-black/50">
+					{formatDate(transfer?.date)}
+				</span>
+				<span className="text-sm text-black/50">
+					{formatRelativeTime(transfer?.date)}
+				</span>
+			</div>
 		</div>
 	);
 }

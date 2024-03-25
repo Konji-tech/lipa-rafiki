@@ -175,7 +175,6 @@ export class Deposit {
 		this.phoneNumber = phone;
 		this.amount = amount;
 		this.date = new Date();
-		this.save();
 	}
 	save() {
 		deposits.push(this);

@@ -7,7 +7,7 @@ export default function WalletCards() {
 
 	return (
 		<div className="flex flex-row flex-wrap gap-4 px-4 py-8">
-			<div className="mr-auto flex w-96 flex-col gap-3 rounded-md border-2 border-black bg-blue-500 p-4 py-6 text-white shadow-lg shadow-blue-600">
+			<div className="mr-auto flex w-96 flex-col gap-3 rounded-xl border-2 border-black bg-blue-500 p-4 py-6 text-white shadow-lg shadow-blue-600">
 				<p className="text-md font-bold">
 					Hi {user?.firstName} {user?.lastName}
 				</p>

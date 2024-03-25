@@ -1,7 +1,114 @@
+import { useState } from "react";
+import { BalanceCard } from "../components/BalanceCard";
+import Button from "../components/custom/Button";
+import {
+	getContacts,
+	getCurrentUserContact,
+	getWithdrawals,
+	userPhoneNumber,
+} from "../utils/cache";
+
+import { getNameByPhoneNumber, Withdrawal } from "../utils/finance";
+import { formatDate, formatRelativeTime } from "../utils/strings";
+
 export default function WithdrawPage() {
+	const user = getCurrentUserContact();
+
+	const [withdrawals, setWithdrawals] = useState(getWithdrawals());
+
+	const [withdrawAmount, setAmount] = useState(0);
+
+	// form state
+
+	function handleSubmission(e) {
+		// prevent page from reloading
+		e.preventDefault();
+
+		// validate available amount
+
+		if (withdrawAmount <= 0) {
+			alert("Please enter a valid amount");
+			return;
+		}
+
+		if (withdrawAmount > user.balance) {
+			alert("Your balance is insufficient");
+			return;
+		}
+
+		const transcation = new Withdrawal(
+			userPhoneNumber,
+			parseFloat(withdrawAmount),
+		);
+		transcation.save();
+
+		// update page data
+		setWithdrawals(getWithdrawals());
+		setAmount(0);
+	}
+
 	return (
-		<div className="flex items-center justify-center">
-			<h1 className="3xl">Withdraw</h1>
+		<div className="flex flex-col gap-8 px-4 py-8">
+			<BalanceCard />
+
+			<form
+				onSubmit={handleSubmission}
+				className="grid gap-4 rounded-xl border-2 border-black bg-light-bg p-4"
+			>
+				<h1 className="font-mono text-xl font-bold uppercase">
+					Withdraw money
+				</h1>
+
+				<div className="grid gap-2">
+					<label>Amount (KES)</label>
+					<input
+						type="number"
+						value={withdrawAmount}
+						onChange={(e) => setAmount(e.target.value)}
+						className="rounded-md border-2 border-black bg-white px-4 py-2"
+					/>
+				</div>
+
+				<Button type="submit"> Initiate transaction </Button>
+			</form>
+
+			<WithdrawalCards withdrawals={withdrawals} />
+		</div>
+	);
+}
+
+function WithdrawalCards({ withdrawals }) {
+	return (
+		<section className="flex flex-col rounded-xl border-2 border-black bg-light-bg p-4">
+			{withdrawals
+				.sort((a, b) => a?.date < b?.date)
+				.map((withdrawal, index) => {
+					return <WithdrawalCard key={index} transfer={withdrawal} />;
+				})}
+		</section>
+	);
+}
+
+function WithdrawalCard({ transfer: withdrawal }) {
+	const w = new Withdrawal(withdrawal.phoneNumber, withdrawal.amount);
+
+	return (
+		<div className="flex flex-wrap justify-between border-b-2 border-black/20 px-2 py-4 last:border-b-0">
+			<div class="flex flex-col gap-2">
+				<span className="text-2xl font-semibold">KES {withdrawal.amount}</span>
+				<span className="text-sm text-black/50">
+					Transaction cost : KES {w?.transactionCost}
+				</span>
+			</div>
+
+			<div class="flex flex-col items-end gap-2">
+				<span className="text-xs text-black/50">
+					{formatDate(withdrawal.date)}
+				</span>
+				<span className="text-sm text-black/50">
+					{formatRelativeTime(withdrawal.date)}
+				</span>
+			</div>
 		</div>
 	);
 }

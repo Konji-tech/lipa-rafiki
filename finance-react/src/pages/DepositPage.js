@@ -3,7 +3,7 @@ import { BalanceCard } from "../components/BalanceCard";
 import Button from "../components/custom/Button";
 import * as cache from "../utils/cache";
 import { Deposit } from "../utils/finance";
-import { formatDate } from "../utils/strings";
+import { formatDate, formatRelativeTime } from "../utils/strings";
 
 export default function DepositPage() {
 	const [deposits, setDeposits] = useState(cache.getDeposits());
@@ -23,6 +23,7 @@ export default function DepositPage() {
 		// make a deposit
 		const deposit = new Deposit(phoneNumber, parseFloat(amount));
 		alert(`KES ${deposit.amount} deposited to your account`);
+		deposit.save();
 
 		// refresh page data
 		setDeposits(cache.getDeposits());
@@ -30,7 +31,7 @@ export default function DepositPage() {
 	}
 
 	return (
-		<div className="flex flex-col gap-8 p-4">
+		<div className="flex flex-col gap-8 px-4 py-8">
 			<BalanceCard />
 
 			<form
@@ -80,9 +81,11 @@ export default function DepositPage() {
 function DepositSection({ deposits }) {
 	return (
 		<section className="flex flex-col rounded-xl border-2 border-black bg-light-bg p-4">
-			{deposits.map((_deposit, index) => (
-				<DepositCard key={index} deposit={_deposit} />
-			))}
+			{deposits
+				.sort((a, b) => a?.date < b?.date)
+				.map((_deposit, index) => (
+					<DepositCard key={index} deposit={_deposit} />
+				))}
 		</section>
 	);
 }
@@ -94,7 +97,15 @@ function DepositCard({ deposit }) {
 				<span className="text-2xl font-semibold">KES {deposit.amount}</span>
 				<span>{deposit.phoneNumber}</span>
 			</div>
-			<span className="self-end text-black/50">{formatDate(deposit.date)}</span>
+
+			<div className="flex flex-col items-end gap-2 self-end">
+				<span className="text-xs text-black/50">
+					{formatDate(deposit.date)}
+				</span>
+				<span className="text-sm text-black/50">
+					{formatRelativeTime(deposit.date)}
+				</span>
+			</div>
 		</div>
 	);
 }
