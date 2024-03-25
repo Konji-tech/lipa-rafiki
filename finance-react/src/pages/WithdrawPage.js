@@ -78,14 +78,28 @@ export default function WithdrawPage() {
 }
 
 function WithdrawalCards({ withdrawals }) {
+	const [searchTerm, setSearchTerm] = useState("");
 	return (
-		<section className="flex flex-col rounded-xl border-2 border-black bg-light-bg p-4">
-			{withdrawals
-				.sort((a, b) => a?.date < b?.date)
-				.map((withdrawal, index) => {
-					return <WithdrawalCard key={index} transfer={withdrawal} />;
-				})}
-		</section>
+		<>
+			<input
+				type="search"
+				className="rounded-md border-2 border-black bg-white px-4 py-2"
+				placeholder="Search for amount"
+				value={searchTerm}
+				onChange={(e) => setSearchTerm(e.target.value)}
+			/>
+
+			<section className="flex flex-col rounded-xl border-2 border-black bg-light-bg p-4">
+				{withdrawals
+					.filter((item) => {
+						return item.amount.toString().includes(searchTerm);
+					})
+					.sort((a, b) => a?.date < b?.date)
+					.map((withdrawal, index) => {
+						return <WithdrawalCard key={index} transfer={withdrawal} />;
+					})}
+			</section>
+		</>
 	);
 }
 
@@ -101,11 +115,11 @@ function WithdrawalCard({ transfer: withdrawal }) {
 				</span>
 			</div>
 
-			<div class="flex flex-col items-end gap-2">
-				<span className="text-xs text-black/50">
+			<div class="flex flex-col gap-2 self-end">
+				<span className="text-right text-xs text-black/50">
 					{formatDate(withdrawal.date)}
 				</span>
-				<span className="text-sm text-black/50">
+				<span className="text-right text-sm text-black/50">
 					{formatRelativeTime(withdrawal.date)}
 				</span>
 			</div>

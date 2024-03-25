@@ -69,24 +69,34 @@ export default function DepositPage() {
 				<Button type="submit"> Initiate transaction </Button>
 			</form>
 
-			<h1 className="text-center text-xl text-black/70"> History </h1>
-
 			{/*DEPOSITS ALREADY SAVED*/}
-
 			<DepositSection deposits={deposits} />
 		</div>
 	);
 }
 
 function DepositSection({ deposits }) {
+	const [searchTerm, setSearchTerm] = useState("");
 	return (
-		<section className="flex flex-col rounded-xl border-2 border-black bg-light-bg p-4">
-			{deposits
-				.sort((a, b) => a?.date < b?.date)
-				.map((_deposit, index) => (
-					<DepositCard key={index} deposit={_deposit} />
-				))}
-		</section>
+		<>
+			<input
+				type="search"
+				className="rounded-md border-2 border-black bg-white px-4 py-2"
+				placeholder="Search for amount"
+				value={searchTerm}
+				onChange={(e) => setSearchTerm(e.target.value)}
+			/>
+			<section className="flex flex-col rounded-xl border-2 border-black bg-light-bg p-4">
+				{deposits
+					.filter((item) => {
+						return item.amount.toString().includes(searchTerm);
+					})
+					.sort((a, b) => a?.date < b?.date)
+					.map((_deposit, index) => (
+						<DepositCard key={index} deposit={_deposit} />
+					))}
+			</section>
+		</>
 	);
 }
 
@@ -98,11 +108,11 @@ function DepositCard({ deposit }) {
 				<span>{deposit.phoneNumber}</span>
 			</div>
 
-			<div className="flex flex-col items-end gap-2 self-end">
-				<span className="text-xs text-black/50">
+			<div className="flex flex-col gap-2 self-end">
+				<span className="text-right text-xs text-black/50">
 					{formatDate(deposit.date)}
 				</span>
-				<span className="text-sm text-black/50">
+				<span className="text-right text-sm text-black/50">
 					{formatRelativeTime(deposit.date)}
 				</span>
 			</div>

@@ -110,14 +110,34 @@ export default function SendPage() {
 }
 
 function TransferCards({ transfers }) {
+	const [searchTerm, setSearchTerm] = useState("");
 	return (
-		<section className="flex flex-col rounded-xl border-2 border-black bg-light-bg p-4">
-			{transfers
-				.sort((a, b) => a?.date < b?.date)
-				.map((transfer, index) => {
-					return <TransferCard key={index} transfer={transfer} />;
-				})}
-		</section>
+		<>
+			<input
+				type="search"
+				className="rounded-md border-2 border-black bg-white px-4 py-2"
+				placeholder="Search for name, phone number or amount"
+				value={searchTerm}
+				onChange={(e) => setSearchTerm(e.target.value)}
+			/>
+
+			<section className="flex flex-col rounded-xl border-2 border-black bg-light-bg p-4">
+				{transfers
+					.filter((item) => {
+						return (
+							getNameByPhoneNumber(item.receiver)
+								.toLowerCase()
+								.includes(searchTerm.toLowerCase()) ||
+							item.receiver.includes(searchTerm) ||
+							item.amount.toString().includes(searchTerm)
+						);
+					})
+					.sort((a, b) => a?.date < b?.date)
+					.map((transfer, index) => {
+						return <TransferCard key={index} transfer={transfer} />;
+					})}
+			</section>
+		</>
 	);
 }
 
@@ -132,11 +152,11 @@ function TransferCard({ transfer }) {
 				<span>{transfer.receiver}</span>
 			</div>
 
-			<div className="flex flex-col items-end gap-2 self-end">
-				<span className="text-xs text-black/50">
+			<div className="flex flex-col gap-2 self-end">
+				<span className="text-right text-xs text-black/50">
 					{formatDate(transfer?.date)}
 				</span>
-				<span className="text-sm text-black/50">
+				<span className="text-right text-sm text-black/50">
 					{formatRelativeTime(transfer?.date)}
 				</span>
 			</div>
