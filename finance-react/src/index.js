@@ -28,9 +28,9 @@ import routes from "./router";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={routes} />
-  </React.StrictMode>,
+	<React.StrictMode>
+		<RouterProvider router={routes} />
+	</React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

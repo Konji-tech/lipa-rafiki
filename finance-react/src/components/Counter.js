@@ -4,24 +4,24 @@ import { useState } from "react";
 
 // this function returns a React.Component
 function Counter() {
-  // create some state
+	// create some state
 
-  // initial state = 7
-  let [myCount, setMyCount] = useState(7);
+	// initial state = 7
+	let [myCount, setMyCount] = useState(7);
 
-  const called = () => {
-    // new state
-    setMyCount(myCount + 1);
-  };
+	const called = () => {
+		// new state
+		setMyCount(myCount + 1);
+	};
 
-  return (
-    <div>
-      <p>Count = {myCount} </p>
-      <button onClick={called}> Increment </button>
-    </div>
-  );
+	return (
+		<div>
+			<p>Count = {myCount} </p>
+			<button onClick={called}> Increment </button>
+		</div>
+	);
 }
 
-refc
+refc;
 
 export default Counter;

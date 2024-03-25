@@ -7,14 +7,14 @@ import WalletPage from "./pages/WalletPage";
 import WithdrawPage from "./pages/WithdrawPage";
 
 export default createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      { path: "", element: <WalletPage /> },
-      { path: "deposit", element: <DepositPage /> },
-      { path: "send", element: <SendPage /> },
-      { path: "withdraw", element: <WithdrawPage /> },
-    ],
-  },
+	{
+		path: "/",
+		element: <App />,
+		children: [
+			{ path: "", element: <WalletPage /> },
+			{ path: "deposit", element: <DepositPage /> },
+			{ path: "send", element: <SendPage /> },
+			{ path: "withdraw", element: <WithdrawPage /> },
+		],
+	},
 ]);

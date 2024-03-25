@@ -19,11 +19,8 @@ export default function WalletCards() {
 					to="/send"
 					className="flex w-48 flex-col items-center justify-center gap-4 border-r-2 border-black p-2 hover:bg-green-100"
 				>
-					<div className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-green-700 bg-green-200 ">
-						<iconify-icon
-							icon="solar:upload-twice-square-line-duotone"
-							className="text-4xl text-green-700"
-						/>
+					<div className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-green-700 bg-green-200 text-4xl text-green-700">
+						<iconify-icon icon="solar:upload-twice-square-line-duotone" />
 					</div>
 					<p className="font-semibold">Send Money</p>
 				</Link>
@@ -31,11 +28,8 @@ export default function WalletCards() {
 					to="/withdraw"
 					className="flex w-48 flex-col items-center justify-center gap-4 p-2 hover:bg-blue-100"
 				>
-					<div className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-blue-700 bg-blue-200 ">
-						<iconify-icon
-							icon="solar:download-twice-square-line-duotone"
-							className="text-4xl text-blue-700"
-						/>
+					<div className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-blue-700 bg-blue-200 text-4xl text-blue-700">
+						<iconify-icon icon="solar:download-twice-square-line-duotone" />
 					</div>
 					<p className="font-semibold">Withdraw Money</p>
 				</Link>
