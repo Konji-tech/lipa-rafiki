@@ -144,7 +144,7 @@ function TransferCards({ transfers }) {
 function TransferCard({ transfer }) {
 	return (
 		<div className="flex flex-wrap justify-between border-b-2 border-black/20 px-2 py-4 last:border-b-0">
-			<div class="flex flex-col gap-2">
+			<div className="flex flex-col gap-2">
 				<span className="text-2xl font-semibold">KES {transfer.amount}</span>
 				<span className="text-black/50">
 					{getNameByPhoneNumber(transfer.receiver)}

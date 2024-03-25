@@ -39,7 +39,6 @@ export default function DepositPage() {
 				className="grid gap-4 rounded-xl  border-2 border-black bg-light-bg p-4 shadow-sm"
 			>
 				<h1 className="font-mono text-xl font-bold uppercase">
-					{" "}
 					Make a deposit
 				</h1>
 
@@ -55,7 +54,7 @@ export default function DepositPage() {
 				</div>
 
 				<div className="grid gap-2">
-					<label for=""> Amount </label>
+					<label> Amount </label>
 					<input
 						required
 						type="number"
