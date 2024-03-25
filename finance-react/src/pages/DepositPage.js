@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { BalanceCard } from "../components/BalanceCard";
+import Button from "../components/custom/Button";
 import * as cache from "../utils/cache";
 import { Deposit } from "../utils/finance";
 import { formatDate } from "../utils/strings";
@@ -29,6 +31,8 @@ export default function DepositPage() {
 
   return (
     <div class="flex flex-col p-4 gap-8">
+      <BalanceCard />
+
       <form
         onSubmit={handleSubmit}
         class="grid gap-4 bg-light-bg  p-4 border-2 border-black rounded-xl shadow-sm"
@@ -58,12 +62,7 @@ export default function DepositPage() {
         </div>
 
         {/* SUBMIT */}
-        <button
-          type="submit"
-          class="bg-primary px-4 py-2 rounded-xl border-2 border-black hover:scale-[1.01] text-white font-semibold uppercase"
-        >
-          Initiate transaction
-        </button>
+        <Button type="submit"> Initiate transaction </Button>
       </form>
 
       <h1 className="text-xl text-black/70 text-center"> History </h1>

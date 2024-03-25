@@ -11,7 +11,7 @@ export default function WalletCards() {
         <p class="text-md font-bold">
           Hi {user?.firstName} {user?.lastName}
         </p>
-        <p class="text-4xl font-light">KES {user.balance}</p>
+        <p class="text-4xl font-light">KES {user?.balance}</p>
       </div>
 
       <div className="flex rounded-xl bg-white border-2 h-48 border-black overflow-hidden transition-colors">

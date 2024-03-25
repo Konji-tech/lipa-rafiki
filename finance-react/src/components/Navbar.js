@@ -9,7 +9,7 @@ const links = [
   },
   {
     name: "Deposit",
-    icon: "solar:card-send",
+    icon: "solar:cardholder",
     route: "/deposit",
   },
   {
@@ -35,16 +35,20 @@ function NavBar() {
             to={link.route}
             className={`flex items-center gap-4 px-4 py-2 rounded-xl border-2 ${
               location?.pathname === link.route
-                ? "bg-white text-black shadow-lg border-black"
+                ? "bg-white text-primary shadow-lg border-black"
                 : "text-black border-transparent"
             }`}
             key={index}
             title={link.name}
           >
             <span className="text-3xl h-full flex items-center">
-              <iconify-icon icon={`${link.icon}-line-duotone`}></iconify-icon>
+              <iconify-icon
+                icon={`${link.icon}-${
+                  location?.pathname === link.route ? "bold" : "line"
+                }-duotone`}
+              ></iconify-icon>
             </span>
-            <span className="hidden md:block">{link.name}</span>
+            <span className="hidden md:block text-black">{link.name}</span>
           </Link>
         );
       })}
