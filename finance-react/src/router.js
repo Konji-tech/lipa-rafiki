@@ -5,6 +5,7 @@ import DepositPage from "./pages/DepositPage";
 import SendPage from "./pages/SendPage";
 import WalletPage from "./pages/WalletPage";
 import WithdrawPage from "./pages/WithdrawPage";
+import TestPage from "./pages/Testing";
 
 export default createBrowserRouter([
 	{
@@ -15,6 +16,7 @@ export default createBrowserRouter([
 			{ path: "deposit", element: <DepositPage /> },
 			{ path: "send", element: <SendPage /> },
 			{ path: "withdraw", element: <WithdrawPage /> },
+			{ path: "testing", element: <TestPage /> },
 		],
 	},
 ]);

@@ -19,7 +19,7 @@ export default function WalletPage() {
 
 			<div className="flex p-4">
 				<Button onClick={reset}>
-					<span class="flex text-3xl">
+					<span className="flex text-3xl">
 						<iconify-icon icon="solar:danger-triangle-bold-duotone"></iconify-icon>
 					</span>
 					<span>Reset local storage</span>

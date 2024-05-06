@@ -22,6 +22,11 @@ const links = [
 		icon: "solar:card-recive",
 		route: "/withdraw",
 	},
+	{
+		name: "Tests",
+		icon: "solar:bug",
+		route: "/testing",
+	},
 ];
 
 function NavBar() {
