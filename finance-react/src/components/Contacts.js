@@ -12,6 +12,7 @@ export function Contacts() {
 							<th className="px-4 py-2 text-left">First Name</th>
 							<th className="px-4 py-2 text-left">Last Name</th>
 							<th className="px-4 py-2 text-left"> Phone Number </th>
+							<th className="px-4 py-2 text-right"> Currency </th>
 						</tr>
 					</thead>
 
@@ -25,6 +26,7 @@ export function Contacts() {
 									<td className="px-4 py-2">{e.firstName}</td>
 									<td className="px-4 py-2">{e.lastName}</td>
 									<td className="px-4 py-2">{e.phoneNumber}</td>
+									<td className="px-4 py-2 text-right">{e.currency}</td>
 								</tr>
 							);
 						})}

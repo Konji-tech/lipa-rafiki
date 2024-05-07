@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { BalanceCard } from "../components/BalanceCard";
 import Button from "../components/custom/Button";
-import {
-	getContacts,
-	getCurrentUserContact,
-	userPhoneNumber,
-} from "../utils/cache";
+import { getContacts, getCurrentUserContact, userPhoneNumber } from "../utils/cache";
 
 import { queryKeys } from "../utils/constants";
 
@@ -18,10 +14,20 @@ export default function SendPage() {
 	const contacts = getContacts();
 
 	const transfersQuery = useQuery({ queryKey: queryKeys.transfers });
+	const exchangeQuery = useQuery({ queryKey: queryKeys.exchange });
 	const queryClient = useQueryClient();
 
 	const [sendAmount, setAmount] = useState(0);
 	const [receiver, setReceiver] = useState(contacts[0].phoneNumber);
+
+	function getReceiverData() {
+		return contacts.find((e) => e.phoneNumber == receiver);
+	}
+
+	function getForeignAmount() {
+		const rate = exchangeQuery?.data?.rates[getReceiverData()?.currency];
+		return sendAmount * rate;
+	}
 
 	async function init() {
 		queryClient.invalidateQueries(queryKeys.transfers);
@@ -45,11 +51,7 @@ export default function SendPage() {
 			return;
 		}
 
-		const transcation = new Transfer(
-			userPhoneNumber,
-			receiver,
-			parseFloat(sendAmount),
-		);
+		const transcation = new Transfer(userPhoneNumber, receiver, parseFloat(sendAmount));
 		await transcation.save();
 
 		// update page data
@@ -61,10 +63,7 @@ export default function SendPage() {
 		<div className="flex flex-col gap-8 px-4 py-8">
 			<BalanceCard />
 
-			<form
-				onSubmit={handleSubmission}
-				className="grid gap-4 rounded-xl border-2 border-black bg-light-bg p-4"
-			>
+			<form onSubmit={handleSubmission} className="grid gap-4 rounded-xl border-2 border-black bg-light-bg p-4">
 				<h1 className="font-mono text-xl font-bold uppercase">Send Money</h1>
 
 				<div className="grid gap-2">
@@ -79,9 +78,9 @@ export default function SendPage() {
 					>
 						{contacts.map((e, index) => (
 							<option value={e.phoneNumber} key={index}>
-								{e.phoneNumber}
-								{"    "}
 								{e.firstName} {e.lastName}
+								{"    "}
+								{e.phoneNumber}
 							</option>
 						))}
 					</select>
@@ -97,15 +96,23 @@ export default function SendPage() {
 					/>
 				</div>
 
+				{/* currency information */}
+				<div className="flex items-center gap-4 rounded-xl bg-blue-200 p-4 text-blue-600">
+					<span className="flex items-center text-3xl">
+						<iconify-icon icon="solar:info-circle-bold-duotone" />
+					</span>
+					<span>Converted to</span>
+					<span>
+						{getForeignAmount().toLocaleString("en-US", {
+							style: "currency",
+							currency: getReceiverData()?.currency,
+						})}
+					</span>
+				</div>
+
 				<p className="font-bold italic text-black/50">
 					<span>Transaction cost :</span>
-					<span>
-						KES{" "}
-						{
-							new Transfer(userPhoneNumber, receiver, sendAmount)
-								?.transactionCost
-						}
-					</span>
+					<span>KES {new Transfer(userPhoneNumber, receiver, sendAmount)?.transactionCost}</span>
 				</p>
 
 				<Button type="submit"> Initiate transactions </Button>
@@ -132,9 +139,7 @@ function TransferCards({ transfers }) {
 				{transfers
 					.filter((item) => {
 						return (
-							getNameByPhoneNumber(item.receiver)
-								.toLowerCase()
-								.includes(searchTerm.toLowerCase()) ||
+							getNameByPhoneNumber(item.receiver).toLowerCase().includes(searchTerm.toLowerCase()) ||
 							item.receiver.includes(searchTerm) ||
 							item.amount.toString().includes(searchTerm)
 						);
@@ -153,19 +158,13 @@ function TransferCard({ transfer }) {
 		<div className="flex flex-wrap justify-between border-b-2 border-black/20 px-2 py-4 last:border-b-0">
 			<div className="flex flex-col gap-2">
 				<span className="text-2xl font-semibold">KES {transfer.amount}</span>
-				<span className="text-black/50">
-					{getNameByPhoneNumber(transfer.receiver)}
-				</span>
+				<span className="text-black/50">{getNameByPhoneNumber(transfer.receiver)}</span>
 				<span>{transfer.receiver}</span>
 			</div>
 
 			<div className="flex flex-col gap-2 self-end">
-				<span className="text-right text-xs text-black/50">
-					{formatDate(transfer?.date)}
-				</span>
-				<span className="text-right text-sm text-black/50">
-					{formatRelativeTime(transfer?.date)}
-				</span>
+				<span className="text-right text-xs text-black/50">{formatDate(transfer?.date)}</span>
+				<span className="text-right text-sm text-black/50">{formatRelativeTime(transfer?.date)}</span>
 			</div>
 		</div>
 	);

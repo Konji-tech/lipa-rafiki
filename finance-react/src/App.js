@@ -7,18 +7,17 @@ import database from "./utils/database";
 import { useQuery } from "@tanstack/react-query";
 
 import { queryKeys } from "./utils/constants";
+import { getExchangeRates } from "./utils/exchange";
 
 function App() {
 	useEffect(() => {
 		initState();
 	});
 
-	useQuery({
-		queryKey: queryKeys.withdrawals,
-		queryFn: database.getWithdrawals,
-	});
+	useQuery({ queryKey: queryKeys.withdrawals, queryFn: database.getWithdrawals });
 	useQuery({ queryKey: queryKeys.deposits, queryFn: database.getDeposits });
 	useQuery({ queryKey: queryKeys.transfers, queryFn: database.getTransfers });
+	useQuery({ queryKey: queryKeys.exchange, queryFn: getExchangeRates, refetchOnMount: false, staleTime: 60 * 60 * 1e3 });
 
 	return (
 		<div className="grid h-screen w-screen grid-cols-[100px,1fr] overflow-hidden transition-all md:grid-cols-[240px,1fr]">

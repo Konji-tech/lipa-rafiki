@@ -37,7 +37,7 @@ export function getTransactionCostForAmount(amount) {
 }
 
 export function getUserBalance(deposits, transactions, withdrawals) {
-	return cache.getCurrentUserContact().balance;
+	return cache.getCurrentUserContact()?.balance;
 }
 
 //Classes : contact,transfer,group
@@ -46,11 +46,13 @@ export class Contact {
 	phoneNumber;
 	firstName;
 	lastName;
+	currency;
 
-	constructor(phone, fname, lname) {
+	constructor(phone, fname, lname, currency) {
 		this.phoneNumber = phone;
 		this.firstName = fname;
 		this.lastName = lname;
+		this.currency = currency;
 	}
 
 	save() {

@@ -17,7 +17,7 @@ export function BalanceCard() {
 					depositsQuery.data,
 					transfersQuery.data,
 					withdrawalsQuery.data,
-				).toLocaleString("en-US", {
+				)?.toLocaleString("en-US", {
 					style: "currency",
 					currency: "KES",
 				})}
