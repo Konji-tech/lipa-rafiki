@@ -35,6 +35,11 @@ export function getTransactionCostForAmount(amount) {
 	else if (amount <= 100000) return 20;
 	else return 25;
 }
+
+export function getUserBalance(deposits, transactions, withdrawals) {
+	return cache.getCurrentUserContact().balance;
+}
+
 //Classes : contact,transfer,group
 
 export class Contact {

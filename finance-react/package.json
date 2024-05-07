@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@tanstack/react-query": "^5.35.1",
 		"dayjs": "^1.11.10",
 		"firebase": "^10.11.1",
 		"iconify-icon": "^2.0.0",

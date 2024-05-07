@@ -2,6 +2,7 @@ import { doc, setDoc, getDocs, collection } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 
 import { db } from "./firebase";
+import { setCache } from "./cache";
 
 function toObj(obj) {
 	return JSON.parse(JSON.stringify(obj));
@@ -18,7 +19,7 @@ function getValues(collectionName) {
 		const querySnapshot = await getDocs(collection(db, collectionName));
 		let arr = [];
 		querySnapshot.forEach((doc) => arr.push(doc.data()));
-		console.log(arr);
+		setCache(collectionName, arr);
 		return arr;
 	};
 }

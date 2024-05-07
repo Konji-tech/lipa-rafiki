@@ -6,30 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "react-router-dom";
 import routes from "./router";
 
-// JSX << javascript with XML
-// CRA (create react app) - scaffolds a Single Page Application (SPA)
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-//                            ╭────────────────────╮
-//                            │ What does a SPA do │
-//                            ╰────────────────────╯
-//
-// SPA has only one html file (index.html)
-// 1. Injects markup to the <div id="root" />
-//
-// React creates a virtual DOM, similar to the browser DOM where it can update the UI when the component data changes
-//
-// 2. Updates the DOM when the browser changes
-// 3. Handles routing (pretends that your website has multiple pages)
-//
-
-//               ╭──────────────────────────────────────────────╮
-//               │ Single Page Applications  are DEAD (sort of) │
-//               ╰──────────────────────────────────────────────╯
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<React.StrictMode>
-		<RouterProvider router={routes} />
+		<QueryClientProvider client={queryClient}>
+			<RouterProvider router={routes} />
+		</QueryClientProvider>
 	</React.StrictMode>,
 );
 

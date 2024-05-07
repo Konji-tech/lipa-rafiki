@@ -7,22 +7,24 @@ import {
 	userPhoneNumber,
 } from "../utils/cache";
 
-import database from "../utils/database";
+import { queryKeys } from "../utils/constants";
 
 import { getNameByPhoneNumber, Transfer } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export default function SendPage() {
 	const user = getCurrentUserContact();
 	const contacts = getContacts();
 
-	const [transfers, setTransfers] = useState([]);
+	const transfersQuery = useQuery({ queryKey: queryKeys.transfers });
+	const queryClient = useQueryClient();
 
 	const [sendAmount, setAmount] = useState(0);
 	const [receiver, setReceiver] = useState(contacts[0].phoneNumber);
 
 	async function init() {
-		setTransfers(await database.getTransfers());
+		queryClient.invalidateQueries(queryKeys.transfers);
 	}
 
 	// form state
@@ -54,10 +56,6 @@ export default function SendPage() {
 		init();
 		setAmount(0);
 	}
-
-	useEffect(() => {
-		init();
-	}, []);
 
 	return (
 		<div className="flex flex-col gap-8 px-4 py-8">
@@ -113,7 +111,7 @@ export default function SendPage() {
 				<Button type="submit"> Initiate transactions </Button>
 			</form>
 
-			<TransferCards transfers={transfers} />
+			<TransferCards transfers={transfersQuery.data ?? []} />
 		</div>
 	);
 }

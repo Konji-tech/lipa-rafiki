@@ -1,26 +1,24 @@
 import { useState } from "react";
 import { BalanceCard } from "../components/BalanceCard";
 import Button from "../components/custom/Button";
-import {
-	getContacts,
-	getCurrentUserContact,
-	getWithdrawals,
-	userPhoneNumber,
-} from "../utils/cache";
+import { getCurrentUserContact, userPhoneNumber } from "../utils/cache";
 
-import { getNameByPhoneNumber, Withdrawal } from "../utils/finance";
+import { Withdrawal } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
-import database from "../utils/database";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { queryKeys } from "../utils/constants";
 
 export default function WithdrawPage() {
 	const user = getCurrentUserContact();
 
-	const [withdrawals, setWithdrawals] = useState([]);
+	const withdrawalsQuery = useQuery({ queryKey: queryKeys.withdrawals });
+	const queryClient = useQueryClient();
 
 	const [withdrawAmount, setAmount] = useState(0);
 
 	async function init() {
-		setWithdrawals(await database.getWithdrawals());
+		queryClient.invalidateQueries(queryKeys.withdrawals);
 	}
 
 	// form state
@@ -54,7 +52,6 @@ export default function WithdrawPage() {
 	return (
 		<div className="flex flex-col gap-8 px-4 py-8">
 			<BalanceCard />
-
 			<form
 				onSubmit={handleSubmission}
 				className="grid gap-4 rounded-xl border-2 border-black bg-light-bg p-4"
@@ -76,7 +73,7 @@ export default function WithdrawPage() {
 				<Button type="submit"> Initiate transaction </Button>
 			</form>
 
-			<WithdrawalCards withdrawals={withdrawals} />
+			<WithdrawalCards withdrawals={withdrawalsQuery.data ?? []} />
 		</div>
 	);
 }

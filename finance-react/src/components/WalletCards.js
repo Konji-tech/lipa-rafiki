@@ -1,16 +1,32 @@
 import { Link } from "react-router-dom";
 import { getCurrentUserContact } from "../utils/cache";
+import { queryKeys } from "../utils/constants";
+import { getUserBalance } from "../utils/finance";
+import { useQuery } from "@tanstack/react-query";
 
 export default function WalletCards() {
 	const user = getCurrentUserContact();
-
+	const [withdrawalsQuery, depositsQuery, transfersQuery] = [
+		useQuery({ queryKey: queryKeys.withdrawals }),
+		useQuery({ queryKey: queryKeys.deposits }),
+		useQuery({ queryKey: queryKeys.transfers }),
+	];
 	return (
 		<div className="grid  gap-4 px-4 py-8 lg:grid-cols-[auto,1fr]">
 			<div className="mr-auto flex min-w-[300px] max-w-96 flex-col gap-3 rounded-xl border-2 border-black bg-blue-500 p-4 py-8 text-white shadow-lg shadow-blue-600">
 				<p className="text-md font-bold">
 					Hi {user?.firstName} {user?.lastName}
 				</p>
-				<p className="text-4xl font-light">KES {user?.balance}</p>
+				<p className="text-4xl font-light">
+					{getUserBalance(
+						depositsQuery.data,
+						transfersQuery.data,
+						withdrawalsQuery.data,
+					).toLocaleString("en-US", {
+						style: "currency",
+						currency: "KES",
+					})}
+				</p>
 			</div>
 
 			<div className="flex w-full flex-col  justify-stretch overflow-hidden rounded-xl border-2 border-black bg-white transition-colors sm:flex-row  ">

@@ -4,16 +4,19 @@ import Button from "../components/custom/Button";
 import * as cache from "../utils/cache";
 import { Deposit } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
-import database from "../utils/database";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { queryKeys } from "../utils/constants";
 
 export default function DepositPage() {
-	const [deposits, setDeposits] = useState([]);
-
 	const [phoneNumber, setPhoneNumber] = useState(cache.userPhoneNumber);
 	const [amount, setAmount] = useState(0);
 
+	const depositsQuery = useQuery({ queryKey: queryKeys.deposits });
+	const queryClient = useQueryClient();
+
 	async function init() {
-		setDeposits(await database.getDeposits());
+		queryClient.invalidateQueries(queryKeys.deposits);
 	}
 
 	async function handleSubmit(e) {
@@ -33,11 +36,6 @@ export default function DepositPage() {
 		setAmount(0);
 		init();
 	}
-
-	useEffect(() => {
-		init();
-	}, []);
-
 	return (
 		<div className="flex flex-col gap-8 px-4 py-8">
 			<BalanceCard />
@@ -77,7 +75,7 @@ export default function DepositPage() {
 			</form>
 
 			{/*DEPOSITS ALREADY SAVED*/}
-			<DepositSection deposits={deposits} />
+			<DepositSection deposits={depositsQuery.data ?? []} />
 		</div>
 	);
 }
