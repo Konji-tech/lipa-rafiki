@@ -1,8 +1,6 @@
-import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
 import NavBar from "./components/Navbar";
-import { initState } from "./utils/init";
 import database from "./utils/database";
 import { useQuery } from "@tanstack/react-query";
 
@@ -10,13 +8,10 @@ import { queryKeys } from "./utils/constants";
 import { getExchangeRates } from "./utils/exchange";
 
 function App() {
-	useEffect(() => {
-		initState();
-	});
-
 	useQuery({ queryKey: queryKeys.withdrawals, queryFn: database.getWithdrawals });
 	useQuery({ queryKey: queryKeys.deposits, queryFn: database.getDeposits });
 	useQuery({ queryKey: queryKeys.transfers, queryFn: database.getTransfers });
+	useQuery({ queryKey: queryKeys.contacts, queryFn: database.getContacts });
 	useQuery({ queryKey: queryKeys.exchange, queryFn: getExchangeRates, refetchOnMount: false, staleTime: 60 * 60 * 1e3 });
 
 	return (

@@ -59,6 +59,7 @@ export class Contact {
 		if (!contacts.find((e) => e.phoneNumber === this.phoneNumber)) {
 			contacts.push(this);
 			cache.setCache("contacts", contacts);
+			database.saveContact(this);
 		}
 	}
 
@@ -96,10 +97,7 @@ export class Contact {
 
 	get balance() {
 		const Balance =
-			this.totalDeposited +
-			this.totalReceived -
-			(this.totalWithdrawnWithTransactionCosts +
-				this.totalSentWithTransactionCosts);
+			this.totalDeposited + this.totalReceived - (this.totalWithdrawnWithTransactionCosts + this.totalSentWithTransactionCosts);
 		return Balance;
 	}
 
@@ -121,9 +119,7 @@ export class Contact {
 	}
 
 	printTransactionHistory() {
-		console.log(
-			"---- History: ----------------------------------------------------------",
-		);
+		console.log("---- History: ----------------------------------------------------------");
 		console.log(`${this.firstName} sent a total of KSH ${this.totalSent}`);
 		const debitHistory = this.debitTransactions.map((e) => {
 			return {
@@ -141,9 +137,7 @@ export class Contact {
 			};
 		});
 		console.table(creditHistory);
-		console.log(
-			"------------------------------------------------------------------------",
-		);
+		console.log("------------------------------------------------------------------------");
 	}
 }
 

@@ -23,10 +23,16 @@ const links = [
 		route: "/withdraw",
 	},
 	{
+		name: "Exchange",
+		icon: "solar:graph-up",
+		route: "/exchange",
+	},
+	{
 		name: "Tests",
 		icon: "solar:bug",
 		route: "/testing",
 	},
+	,
 ];
 
 function NavBar() {
@@ -39,19 +45,13 @@ function NavBar() {
 					<Link
 						to={link.route}
 						className={`flex items-center gap-4 rounded-xl border-2 px-4 py-2 ${
-							location?.pathname === link.route
-								? "border-black bg-white text-primary shadow-lg"
-								: "border-transparent text-black"
+							location?.pathname === link.route ? "border-black bg-white text-primary shadow-lg" : "border-transparent text-black"
 						}`}
 						key={index}
 						title={link.name}
 					>
 						<span className="flex h-full items-center text-3xl">
-							<iconify-icon
-								icon={`${link.icon}-${
-									location?.pathname === link.route ? "bold" : "line"
-								}-duotone`}
-							></iconify-icon>
+							<iconify-icon icon={`${link.icon}-${location?.pathname === link.route ? "bold" : "line"}-duotone`}></iconify-icon>
 						</span>
 						<span className="hidden text-black md:block">{link.name}</span>
 					</Link>

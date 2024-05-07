@@ -30,10 +30,12 @@ export default {
 	saveDeposit: setValue("deposits"),
 	saveWithdrawals: setValue("withdrawls"),
 	saveGroup: setValue("groups"),
+	saveContact: setValue("contacts"),
 
 	// getters
 	getTransfers: getValues("transfers"),
 	getDeposits: getValues("deposits"),
 	getWithdrawals: getValues("withdrawls"),
 	getGroups: getValues("groups"),
+	getContacts: getValues("contacts"),
 };

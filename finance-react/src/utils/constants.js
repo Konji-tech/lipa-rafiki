@@ -3,4 +3,5 @@ export const queryKeys = {
 	transfers: ["transfers"],
 	deposits: ["deposits"],
 	exchange: ["exchange"],
+	contacts: ["contacts"],
 };
