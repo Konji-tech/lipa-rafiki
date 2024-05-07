@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BalanceCard } from "../components/BalanceCard";
 import Button from "../components/custom/Button";
 import {
 	getContacts,
 	getCurrentUserContact,
-	getTransfers,
 	userPhoneNumber,
 } from "../utils/cache";
+
+import database from "../utils/database";
 
 import { getNameByPhoneNumber, Transfer } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
@@ -15,14 +16,18 @@ export default function SendPage() {
 	const user = getCurrentUserContact();
 	const contacts = getContacts();
 
-	const [transfers, setTransfers] = useState(getTransfers());
+	const [transfers, setTransfers] = useState([]);
 
 	const [sendAmount, setAmount] = useState(0);
 	const [receiver, setReceiver] = useState(contacts[0].phoneNumber);
 
+	async function init() {
+		setTransfers(await database.getTransfers());
+	}
+
 	// form state
 
-	function handleSubmission(e) {
+	async function handleSubmission(e) {
 		// prevent page from reloading
 		e.preventDefault();
 
@@ -43,12 +48,16 @@ export default function SendPage() {
 			receiver,
 			parseFloat(sendAmount),
 		);
-		transcation.save();
+		await transcation.save();
 
 		// update page data
-		setTransfers(getTransfers());
+		init();
 		setAmount(0);
 	}
+
+	useEffect(() => {
+		init();
+	}, []);
 
 	return (
 		<div className="flex flex-col gap-8 px-4 py-8">

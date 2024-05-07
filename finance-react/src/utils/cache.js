@@ -5,7 +5,7 @@ export function setCache(key, value) {
 }
 
 export function getCache(key) {
-	return JSON.parse(localStorage.getItem(`finance-${key}`) ?? "null");
+	return JSON.parse(localStorage.getItem(`finance-${key}`) || "[]");
 }
 
 export const userPhoneNumber = "+254711223344";

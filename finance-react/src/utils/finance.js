@@ -3,6 +3,7 @@
 // [x] display reports
 
 import * as cache from "./cache";
+import database from "./database";
 
 //custom feature:
 // [x] create groups
@@ -152,18 +153,11 @@ export class Transfer {
 		this.amount = amount;
 		this.date = new Date();
 		this.transactionCost = getTransactionCostForAmount(amount);
-
-		const senderName = getNameByPhoneNumber(sender);
-		const receiverName = getNameByPhoneNumber(receiver);
-
-		console.log(
-			`${senderName} has sent KSH ${amount} to ${receiverName} Transaction Cost : KSH ${this.transactionCost}`,
-		);
 	}
 
-	save() {
+	async save() {
 		transfers.push(this);
-		cache.setCache("transfers", transfers);
+		await database.saveTransfer(this);
 	}
 }
 
@@ -176,9 +170,9 @@ export class Deposit {
 		this.amount = amount;
 		this.date = new Date();
 	}
-	save() {
+	async save() {
 		deposits.push(this);
-		cache.setCache("deposits", deposits);
+		await database.saveDeposit(this);
 	}
 }
 
@@ -186,9 +180,9 @@ export class Withdrawal extends Deposit {
 	get transactionCost() {
 		return getTransactionCostForAmount(this.amount);
 	}
-	save() {
+	async save() {
 		withdrawals.push(this);
-		cache.setCache("withdrawals", withdrawals);
+		await database.saveWithdrawals(this);
 	}
 }
 

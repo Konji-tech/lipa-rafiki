@@ -10,17 +10,21 @@ import {
 
 import { getNameByPhoneNumber, Withdrawal } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
+import database from "../utils/database";
 
 export default function WithdrawPage() {
 	const user = getCurrentUserContact();
 
-	const [withdrawals, setWithdrawals] = useState(getWithdrawals());
+	const [withdrawals, setWithdrawals] = useState([]);
 
 	const [withdrawAmount, setAmount] = useState(0);
 
-	// form state
+	async function init() {
+		setWithdrawals(await database.getWithdrawals());
+	}
 
-	function handleSubmission(e) {
+	// form state
+	async function handleSubmission(e) {
 		// prevent page from reloading
 		e.preventDefault();
 
@@ -40,11 +44,11 @@ export default function WithdrawPage() {
 			userPhoneNumber,
 			parseFloat(withdrawAmount),
 		);
-		transcation.save();
+		await transcation.save();
 
 		// update page data
-		setWithdrawals(getWithdrawals());
 		setAmount(0);
+		await init();
 	}
 
 	return (

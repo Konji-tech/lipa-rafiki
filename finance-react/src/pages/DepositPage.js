@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BalanceCard } from "../components/BalanceCard";
 import Button from "../components/custom/Button";
 import * as cache from "../utils/cache";
 import { Deposit } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
+import database from "../utils/database";
 
 export default function DepositPage() {
-	const [deposits, setDeposits] = useState(cache.getDeposits());
+	const [deposits, setDeposits] = useState([]);
 
 	const [phoneNumber, setPhoneNumber] = useState(cache.userPhoneNumber);
 	const [amount, setAmount] = useState(0);
 
-	function handleSubmit(e) {
+	async function init() {
+		setDeposits(await database.getDeposits());
+	}
+
+	async function handleSubmit(e) {
 		// prevent the page from reloading
 		e.preventDefault();
 
@@ -22,12 +27,16 @@ export default function DepositPage() {
 
 		// make a deposit
 		const deposit = new Deposit(phoneNumber, parseFloat(amount));
-		deposit.save();
+		await deposit.save();
 
 		// refresh page data
-		setDeposits(cache.getDeposits());
 		setAmount(0);
+		init();
 	}
+
+	useEffect(() => {
+		init();
+	}, []);
 
 	return (
 		<div className="flex flex-col gap-8 px-4 py-8">

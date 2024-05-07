@@ -3,7 +3,6 @@ import { getCurrentUserContact } from "../utils/cache";
 
 export default function WalletCards() {
 	const user = getCurrentUserContact();
-	console.log(user);
 
 	return (
 		<div className="grid  gap-4 px-4 py-8 lg:grid-cols-[auto,1fr]">
