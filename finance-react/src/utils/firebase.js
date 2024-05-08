@@ -3,13 +3,13 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-	apiKey: "AIzaSyBgy0yYrfIwatMEApF9fR9FRTY06luHISw",
-	authDomain: "test-1a1f2.firebaseapp.com",
-	projectId: "test-1a1f2",
-	storageBucket: "test-1a1f2.appspot.com",
-	messagingSenderId: "385087268234",
-	appId: "1:385087268234:web:ed267ada448fb60eb21473",
-	measurementId: "G-859R3NG21T",
+	apiKey: "AIzaSyBvkkPvqgtEDDlPI9jvloMOw_vHTdHiRcw",
+	authDomain: "mpesa-react.firebaseapp.com",
+	projectId: "mpesa-react",
+	storageBucket: "mpesa-react.appspot.com",
+	messagingSenderId: "405971368228",
+	appId: "1:405971368228:web:fcdc7dd2f1324012239bb1",
+	measurementId: "G-X6GBH1WP11",
 };
 
 // Initialize Firebase
