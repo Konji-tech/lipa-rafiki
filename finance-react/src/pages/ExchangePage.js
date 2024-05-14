@@ -9,22 +9,26 @@ function ExchangePage() {
 		const { rates } = exchangeQuery.data;
 
 		return (
-			<table>
-				<thead>
-					<tr>
-						<th>Currency</th>
-						<th>Exchange Rate</th>
-					</tr>
-				</thead>
-				<tbody>
-					{Object.entries(rates).map(([currency, rate]) => (
-						<tr key={currency}>
-							<td>{currency}</td>
-							<td>{rate}</td>
-						</tr>
-					))}
-				</tbody>
-			</table>
+			<div className="px-4">
+				<div className="overflow-hidden rounded-xl border-2 border-black bg-primary">
+					<table className="w-full">
+						<thead className="border-b-2 border-black text-white">
+							<tr>
+								<th className="px-4 py-2 text-left">Currency</th>
+								<th className="px-4 py-2 text-left">Exchange Rate</th>
+							</tr>
+						</thead>
+						<tbody className="bg-light-bg">
+							{Object.entries(rates).map(([currency, rate]) => (
+								<tr key={currency}>
+									<td className="px-4 py-2">{currency}</td>
+									<td className="px-4 py-2">{rate}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+			</div>
 		);
 	};
 
