@@ -13,6 +13,7 @@ export default function SendPage() {
 	const user = getCurrentUserContact();
 	const contacts = getContacts();
 
+	// Calling the API
 	const transfersQuery = useQuery({ queryKey: queryKeys.transfers });
 	const exchangeQuery = useQuery({ queryKey: queryKeys.exchange });
 	const queryClient = useQueryClient();
@@ -34,13 +35,11 @@ export default function SendPage() {
 	}
 
 	// form state
-
 	async function handleSubmission(e) {
-		// prevent page from reloading
+		// prevent page from reloading when form is submitted
 		e.preventDefault();
 
 		// validate available amount
-
 		if (sendAmount <= 0) {
 			alert("Please enter a valid amount");
 			return;

@@ -1,13 +1,8 @@
 // [x] transaction system
 // [x] transfer funds between accounts
-// [x] display reports
 
 import * as cache from "./cache";
 import database from "./database";
-
-//custom feature:
-// [x] create groups
-// [x] Bundle group payment
 
 //act as database
 const contacts = cache.getContacts();
@@ -16,6 +11,7 @@ const withdrawals = cache.getWithdrawals();
 const transfers = cache.getTransfers();
 
 //helper functions
+
 export function getTotalAmount(accumulator, element) {
 	return accumulator + element.amount;
 }
@@ -100,45 +96,6 @@ export class Contact {
 			this.totalDeposited + this.totalReceived - (this.totalWithdrawnWithTransactionCosts + this.totalSentWithTransactionCosts);
 		return Balance;
 	}
-
-	// print report
-	printStatement() {
-		console.log(` ${this.firstName} ${this.lastName}
----- Statement: --------------------------------------------------------
-	Total Deposits		: ${this.deposits.length}
-	Amount Deposited	: KSH ${this.totalDeposited}
-	Total Withdrawals	: ${this.withdrawals.length}	
-	Amount Withdrawn	: KSH ${this.totalWithdrawn}
-	----------------------------------------------------------------
-	Total Amount Sent	:  KSH ${this.totalSent} in ${this.debitTransactions.length} transactions
-	Total Amount Received 	:  KSH ${this.totalReceived} in ${this.creditTransactions.length} transactions
-	----------------------------------------------------------------
-	Balance				: KSH ${this.balance}
-------------------------------------------------------------------------
-`);
-	}
-
-	printTransactionHistory() {
-		console.log("---- History: ----------------------------------------------------------");
-		console.log(`${this.firstName} sent a total of KSH ${this.totalSent}`);
-		const debitHistory = this.debitTransactions.map((e) => {
-			return {
-				"Sent to": getNameByPhoneNumber(e.receiver),
-				"Amount (KSH)": e.amount,
-				"Transaction cost (KSH)": e.transactionCost,
-			};
-		});
-		console.table(debitHistory);
-		console.log(`and received a total of KES ${this.totalReceived}`);
-		const creditHistory = this.creditTransactions.map((e) => {
-			return {
-				"Received from ": getNameByPhoneNumber(e.sender),
-				"Amount (KSH)": e.amount,
-			};
-		});
-		console.table(creditHistory);
-		console.log("------------------------------------------------------------------------");
-	}
 }
 
 export class Transfer {
@@ -156,6 +113,7 @@ export class Transfer {
 		this.transactionCost = getTransactionCostForAmount(amount);
 	}
 
+	// Firebase response
 	async save() {
 		transfers.push(this);
 		await database.saveTransfer(this);
@@ -187,7 +145,7 @@ export class Withdrawal extends Deposit {
 	}
 }
 
-export class Group {
+/*export class Group {
 	name;
 	members = []; // array of phone numbers
 
@@ -213,4 +171,4 @@ export class Group {
 			if (sender !== receiver) new Transfer(sender, receiver, amount);
 		}
 	}
-}
+}*/

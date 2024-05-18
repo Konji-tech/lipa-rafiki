@@ -1,5 +1,6 @@
 import { Contact } from "./finance";
 
+// to cache the data used for calculating
 export function setCache(key, value) {
 	localStorage.setItem(`finance-${key}`, JSON.stringify(value));
 }
@@ -8,12 +9,13 @@ export function getCache(key) {
 	return JSON.parse(localStorage.getItem(`finance-${key}`) || "[]");
 }
 
+//To diff Andrew's number
 export const userPhoneNumber = "+254711223344";
 
 // getters
 
 export function getContacts() {
-	// get everyone except the current user
+	// get everyone except Andrew
 	return (getCache("contacts") ?? [])?.filter((e) => e.phoneNumber !== "+254711223344");
 }
 
@@ -37,6 +39,6 @@ export function getWithdrawals() {
 	return getCache("withdrawals") ?? [];
 }
 
-export function getGroups() {
+/*export function getGroups() {
 	return getCache("groups") ?? [];
-}
+}*/

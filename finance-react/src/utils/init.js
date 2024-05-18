@@ -4,7 +4,7 @@ import { setCache, userPhoneNumber } from "./cache";
 import { Contact } from "./finance";
 
 export function initState() {
-	new Contact(userPhoneNumber, "Andrew", "Kibet", "KES").save();
+	new Contact(userPhoneNumber, "Andrew", "Jeremy", "KES").save();
 
 	// dummy contacts
 	new Contact("+254700000001", "Viola", "Konji", "KES").save();

@@ -1,3 +1,5 @@
+// Showcasing exchange rate table
+
 import { queryKeys } from "../utils/constants";
 import { useQuery } from "@tanstack/react-query";
 
