@@ -5,7 +5,7 @@ import { getContacts, getCurrentUserContact, userPhoneNumber } from "../utils/ca
 
 import { queryKeys } from "../utils/constants";
 
-import { getNameByPhoneNumber, Transfer } from "../utils/finance";
+import { getNameByPhoneNumber, Transfer, getTransactionCostForAmount } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Toaster, toast } from "sonner"; //notification
@@ -26,9 +26,17 @@ export default function SendPage() {
 		return contacts.find((e) => e.phoneNumber == receiver);
 	}
 
+	//to convert amount being sent
 	function getForeignAmount() {
 		const rate = exchangeQuery?.data?.rates[getReceiverData()?.currency];
 		return sendAmount * rate;
+	}
+
+	//To convert transaction cost
+	function getForeignTransactionCost() {
+		const transactionCost = getTransactionCostForAmount(sendAmount);
+		const rate = exchangeQuery?.data?.rates[getReceiverData()?.currency];
+		return transactionCost * rate;
 	}
 
 	async function init() {
@@ -67,7 +75,7 @@ export default function SendPage() {
 
 		toast.promise(myPromise, {
 			loading: "Sending...",
-			success: `  ${sendAmount} has been sent to ${getNameByPhoneNumber(receiver)}`,
+			success: `  ${sendAmount} has been sent to ${getNameByPhoneNumber(receiver)}, Transaction Cost : ${getTransactionCostForAmount(sendAmount)}`,
 			error: "Error Occurred",
 		});
 	}
@@ -127,6 +135,16 @@ export default function SendPage() {
 				<p className="font-bold italic text-black/50">
 					<span>Transaction cost :</span>
 					<span>KES {new Transfer(userPhoneNumber, receiver, sendAmount)?.transactionCost}</span>
+					<p>
+						<span>Converted to : </span>
+						{/* Display converted transaction cost */}
+						<span>
+							{getForeignTransactionCost().toLocaleString("en-US", {
+								style: "currency",
+								currency: getReceiverData()?.currency,
+							})}
+						</span>
+					</p>
 				</p>
 
 				<Button type="submit">Initiate transactions</Button>

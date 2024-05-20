@@ -6,6 +6,7 @@ import { getCurrentUserContact, userPhoneNumber } from "../utils/cache";
 import { Withdrawal } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Toaster, toast } from "sonner"; //notification
 
 import { queryKeys } from "../utils/constants";
 
@@ -38,27 +39,33 @@ export default function WithdrawPage() {
 			return;
 		}
 
-		const transcation = new Withdrawal(
-			userPhoneNumber,
-			parseFloat(withdrawAmount),
-		);
+		const transcation = new Withdrawal(userPhoneNumber, parseFloat(withdrawAmount));
 		await transcation.save();
 
 		// update page data
 		setAmount(0);
 		await init();
+
+		//notification
+		const myPromise = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve({ name: "Success" });
+			}, 500);
+		});
+
+		toast.promise(myPromise, {
+			loading: "Withdrawing...",
+			success: `  ${withdrawAmount} has been Withdrawn`,
+			error: "Error Occurred",
+		});
 	}
 
 	return (
 		<div className="flex flex-col gap-8 px-4 py-8">
 			<BalanceCard />
-			<form
-				onSubmit={handleSubmission}
-				className="grid gap-4 rounded-xl border-2 border-black bg-light-bg p-4"
-			>
-				<h1 className="font-mono text-xl font-bold uppercase">
-					Withdraw money
-				</h1>
+			<Toaster richColors position="top-right" />
+			<form onSubmit={handleSubmission} className="grid gap-4 rounded-xl border-2 border-black bg-light-bg p-4">
+				<h1 className="font-mono text-xl font-bold uppercase">Withdraw money</h1>
 
 				<div className="grid gap-2">
 					<label>Amount (KES)</label>
@@ -111,18 +118,12 @@ function WithdrawalCard({ transfer: withdrawal }) {
 		<div className="flex flex-wrap justify-between border-b-2 border-black/20 px-2 py-4 last:border-b-0">
 			<div className="flex flex-col gap-2">
 				<span className="text-2xl font-semibold">KES {withdrawal.amount}</span>
-				<span className="text-sm text-black/50">
-					Transaction cost : KES {w?.transactionCost}
-				</span>
+				<span className="text-sm text-black/50">Transaction cost : KES {w?.transactionCost}</span>
 			</div>
 
 			<div className="flex flex-col gap-2 self-end">
-				<span className="text-right text-xs text-black/50">
-					{formatDate(withdrawal.date)}
-				</span>
-				<span className="text-right text-sm text-black/50">
-					{formatRelativeTime(withdrawal.date)}
-				</span>
+				<span className="text-right text-xs text-black/50">{formatDate(withdrawal.date)}</span>
+				<span className="text-right text-sm text-black/50">{formatRelativeTime(withdrawal.date)}</span>
 			</div>
 		</div>
 	);

@@ -5,6 +5,7 @@ import * as cache from "../utils/cache";
 import { Deposit } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Toaster, toast } from "sonner"; //notification
 
 import { queryKeys } from "../utils/constants";
 
@@ -35,18 +36,27 @@ export default function DepositPage() {
 		// refresh page data
 		setAmount(0);
 		init();
+
+		//notification
+		const myPromise = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve({ name: "Success" });
+			}, 500);
+		});
+
+		toast.promise(myPromise, {
+			loading: "Depositing...",
+			success: `  ${amount} has been Deposited`,
+			error: "Error Occurred",
+		});
 	}
 	return (
 		<div className="flex flex-col gap-8 px-4 py-8">
 			<BalanceCard />
+			<Toaster richColors position="top-right" />
 
-			<form
-				onSubmit={handleSubmit}
-				className="grid gap-4 rounded-xl  border-2 border-black bg-light-bg p-4 shadow-sm"
-			>
-				<h1 className="font-mono text-xl font-bold uppercase">
-					Make a deposit
-				</h1>
+			<form onSubmit={handleSubmit} className="grid gap-4 rounded-xl  border-2 border-black bg-light-bg p-4 shadow-sm">
+				<h1 className="font-mono text-xl font-bold uppercase">Make a deposit</h1>
 
 				<div className="grid gap-2">
 					<label> Phone Number </label>
@@ -114,12 +124,8 @@ function DepositCard({ deposit }) {
 			</div>
 
 			<div className="flex flex-col gap-2 self-end">
-				<span className="text-right text-xs text-black/50">
-					{formatDate(deposit.date)}
-				</span>
-				<span className="text-right text-sm text-black/50">
-					{formatRelativeTime(deposit.date)}
-				</span>
+				<span className="text-right text-xs text-black/50">{formatDate(deposit.date)}</span>
+				<span className="text-right text-sm text-black/50">{formatRelativeTime(deposit.date)}</span>
 			</div>
 		</div>
 	);
