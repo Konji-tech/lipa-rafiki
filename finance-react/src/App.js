@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { Toaster, toast } from "sonner";
 
 import NavBar from "./components/Navbar";
 import database from "./utils/database";
@@ -22,6 +23,7 @@ function App() {
 			<div className="overflow-auto bg-bg">
 				{/* Children go here */}
 				<div className="mx-auto max-w-screen-lg">
+					<Toaster />
 					<Outlet />
 				</div>
 			</div>

@@ -8,6 +8,7 @@ import { queryKeys } from "../utils/constants";
 import { getNameByPhoneNumber, Transfer } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Toaster, toast } from "sonner"; //notification
 
 export default function SendPage() {
 	const user = getCurrentUserContact();
@@ -56,6 +57,19 @@ export default function SendPage() {
 		// update page data
 		init();
 		setAmount(0);
+
+		//notification
+		const myPromise = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve({ name: "Success" });
+			}, 2000);
+		});
+
+		toast.promise(myPromise, {
+			loading: "Sending...",
+			success: `${sendAmount}  has been sent`,
+			error: "Error Occurred",
+		});
 	}
 
 	return (
@@ -114,7 +128,7 @@ export default function SendPage() {
 					<span>KES {new Transfer(userPhoneNumber, receiver, sendAmount)?.transactionCost}</span>
 				</p>
 
-				<Button type="submit"> Initiate transactions </Button>
+				<Button type="submit">Initiate transactions</Button>
 			</form>
 
 			<TransferCards transfers={transfersQuery.data ?? []} />
