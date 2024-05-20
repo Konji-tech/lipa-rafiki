@@ -50,12 +50,12 @@ export default function SendPage() {
 
 		// validate available amount
 		if (sendAmount <= 0) {
-			alert("Please enter a valid amount");
+			toast.error("Please enter a valid amount");
 			return;
 		}
 
 		if (sendAmount > user.balance) {
-			alert("Your balance is insufficient");
+			toast.error("Your balance is insufficient");
 			return;
 		}
 
@@ -138,12 +138,12 @@ export default function SendPage() {
 					<p>
 						<span>Converted to : </span>
 						{/* Display converted transaction cost */}
-						<span>
+						{/*<span>
 							{getForeignTransactionCost().toLocaleString("en-US", {
 								style: "currency",
 								currency: getReceiverData()?.currency,
 							})}
-						</span>
+						</span>*/}
 					</p>
 				</p>
 
