@@ -9,6 +9,12 @@ import routes from "./router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
+queryClient.setDefaultOptions({
+	queries: {
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
+	},
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
