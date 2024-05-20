@@ -138,12 +138,12 @@ export default function SendPage() {
 					<p>
 						<span>Converted to : </span>
 						{/* Display converted transaction cost */}
-						{/*<span>
+						<span>
 							{getForeignTransactionCost().toLocaleString("en-US", {
 								style: "currency",
 								currency: getReceiverData()?.currency,
 							})}
-						</span>*/}
+						</span>
 					</p>
 				</p>
 
