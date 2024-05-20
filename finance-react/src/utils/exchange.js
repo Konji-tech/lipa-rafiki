@@ -3,7 +3,7 @@ export async function getExchangeRates() {
 	const options = {
 		method: "GET",
 		headers: {
-			"X-RapidAPI-Key": "5dea281b7816d44010d56082d035c94e",
+			"X-RapidAPI-Key": "b13d7b72d6mshc2925428c9d05bap1ee7b5jsnafa1e8dc07d5",
 			"X-RapidAPI-Host": "exchange-rate-api1.p.rapidapi.com",
 		},
 	};
