@@ -5,7 +5,7 @@ import * as cache from "../utils/cache";
 import { Deposit } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Toaster, toast } from "sonner"; //notification
+import { toast } from "sonner"; //notification
 
 import { queryKeys } from "../utils/constants";
 
@@ -53,7 +53,6 @@ export default function DepositPage() {
 	return (
 		<div className="flex flex-col gap-8 px-4 py-8">
 			<BalanceCard />
-			<Toaster richColors position="top-right" />
 
 			<form onSubmit={handleSubmit} className="grid gap-4 rounded-xl  border-2 border-black bg-light-bg p-4 shadow-sm">
 				<h1 className="font-mono text-xl font-bold uppercase">Make a deposit</h1>

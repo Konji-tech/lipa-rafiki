@@ -23,7 +23,7 @@ function App() {
 			<div className="overflow-auto bg-bg">
 				{/* Children go here */}
 				<div className="mx-auto max-w-screen-lg">
-					<Toaster />
+					<Toaster richColors position="top-right" />
 					<Outlet />
 				</div>
 			</div>
