@@ -67,7 +67,7 @@ export default function SendPage() {
 
 		toast.promise(myPromise, {
 			loading: "Sending...",
-			success: `${sendAmount}  has been sent`,
+			success: `  ${sendAmount} has been sent to ${getNameByPhoneNumber(receiver)}`,
 			error: "Error Occurred",
 		});
 	}
@@ -75,6 +75,7 @@ export default function SendPage() {
 	return (
 		<div className="flex flex-col gap-8 px-4 py-8">
 			<BalanceCard />
+			<Toaster richColors position="top-right" />
 
 			<form onSubmit={handleSubmission} className="grid gap-4 rounded-xl border-2 border-black bg-light-bg p-4">
 				<h1 className="font-mono text-xl font-bold uppercase">Send Money</h1>
