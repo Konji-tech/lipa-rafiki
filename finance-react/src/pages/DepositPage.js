@@ -25,7 +25,7 @@ export default function DepositPage() {
 		e.preventDefault();
 
 		if (amount <= 0) {
-			alert("Please enter a valid amount");
+			toast.error("Please enter a valid amount");
 			return;
 		}
 
