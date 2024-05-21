@@ -9,7 +9,7 @@ function Authorized() {
 	const contacts = getContacts();
 
 	function getForeignAmount() {
-		const rate = exchangeQuery?.data?.rates[contacts.currency];
+		const rate = exchangeQuery?.data?.rates[contacts?.currency];
 		return contacts.balance * rate;
 	}
 
