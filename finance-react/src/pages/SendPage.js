@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BalanceCard } from "../components/BalanceCard";
 import Button from "../components/custom/Button";
-import { getContacts, getCurrentUserContact, userPhoneNumber } from "../utils/cache";
+import { getContacts, getCurrentUserContact, userPhoneNumber } from "../utils/finance";
 
 import { queryKeys } from "../utils/constants";
 
@@ -20,22 +20,22 @@ export default function SendPage() {
 	const queryClient = useQueryClient();
 
 	const [sendAmount, setAmount] = useState(0);
-	const [receiver, setReceiver] = useState(contacts[0].phoneNumber);
+	const [receiver, setReceiver] = useState(contacts[0] ? contacts[0].phoneNumber : null);
 
 	function getReceiverData() {
-		return contacts.find((e) => e.phoneNumber == receiver);
+		return contacts.find((e) => e?.phoneNumber == receiver);
 	}
 
 	//to convert amount being sent
-	function getForeignAmount() {
-		const rate = exchangeQuery?.data?.rates[getReceiverData()?.currency];
-		return sendAmount * rate;
+	function getForeignAmount(rates, contact) {
+		if (!contact) return 0;
+		return sendAmount * rates[contact?.currency];
 	}
 
 	//To convert transaction cost
-	function getForeignTransactionCost() {
+	function getForeignTransactionCost(rates, contact) {
 		const transactionCost = getTransactionCostForAmount(sendAmount);
-		const rate = exchangeQuery?.data?.rates[getReceiverData()?.currency];
+		const rate = rates[contact?.currency];
 		return transactionCost * rate;
 	}
 
@@ -80,6 +80,10 @@ export default function SendPage() {
 		});
 	}
 
+	if (!contacts?.length) {
+		return <div>Loading...</div>;
+	}
+
 	return (
 		<div className="flex flex-col gap-8 px-4 py-8">
 			<BalanceCard />
@@ -122,12 +126,14 @@ export default function SendPage() {
 					<span className="flex items-center text-3xl">
 						<iconify-icon icon="solar:info-circle-bold-duotone" />
 					</span>
-					<span>Converted to</span>
+					<span>Converted to </span>
 					<span>
-						{getForeignAmount().toLocaleString("en-US", {
-							style: "currency",
-							currency: getReceiverData()?.currency,
-						})}
+						{exchangeQuery.data &&
+							getReceiverData() &&
+							getForeignAmount(exchangeQuery.data?.rates, getReceiverData()).toLocaleString("en-US", {
+								style: "currency",
+								currency: getReceiverData()?.currency,
+							})}
 					</span>
 				</div>
 
@@ -138,10 +144,12 @@ export default function SendPage() {
 						<span>Converted to : </span>
 						{/* Display converted transaction cost */}
 						<span>
-							{getForeignTransactionCost().toLocaleString("en-US", {
-								style: "currency",
-								currency: getReceiverData()?.currency,
-							})}
+							{exchangeQuery.data &&
+								getReceiverData() &&
+								getForeignTransactionCost(exchangeQuery.data?.rates, getReceiverData()).toLocaleString("en-US", {
+									style: "currency",
+									currency: getReceiverData()?.currency,
+								})}
 						</span>
 					</p>
 				</p>

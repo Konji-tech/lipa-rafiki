@@ -1,14 +1,9 @@
 // [x] transaction system
 // [x] transfer funds between accounts
 
-import * as cache from "./cache";
+import { queryKeys } from "./constants";
 import database from "./database";
-
-//act as database
-const contacts = cache.getContacts();
-const deposits = cache.getDeposits();
-const withdrawals = cache.getWithdrawals();
-const transfers = cache.getTransfers();
+import { queryClient } from "./network";
 
 //helper functions
 
@@ -17,11 +12,11 @@ export function getTotalAmount(accumulator, element) {
 }
 
 export function getTotalAmountWithTransactionCost(accumulator, element) {
-	return accumulator + element.amount + element.transactionCost;
+	return accumulator + element?.amount + (element?.transactionCost || 0);
 }
 
 export function getNameByPhoneNumber(phone) {
-	const c = contacts.find((e) => e.phoneNumber === phone);
+	const c = new CacheWrapper().cachedContacts?.find((e) => e.phoneNumber === phone);
 	return c?.firstName + " " + c?.lastName;
 }
 
@@ -32,19 +27,49 @@ export function getTransactionCostForAmount(amount) {
 	else return 25;
 }
 
+export const userPhoneNumber = "+254711223344";
+
+export function getContacts() {
+	const data = new CacheWrapper().cachedContacts?.filter((e) => e.phoneNumber !== "+254711223344");
+	return data;
+}
+
+export function getCurrentUserContact() {
+	const c = getContacts()?.find((e) => e?.phoneNumber === userPhoneNumber);
+	return new Contact(c?.phoneNumber, c?.firstName, c?.lastName, c?.currency);
+}
+
 export function getUserBalance(deposits, transactions, withdrawals) {
-	return cache.getCurrentUserContact()?.balance;
+	return getCurrentUserContact()?.balance ?? 0;
+}
+
+class CacheWrapper {
+	get cachedContacts() {
+		return (queryClient.getQueryData(queryKeys.contacts) || [])?.map(
+			(e) => new Contact(e?.phoneNumber, e?.firstName, e?.lastName, e?.currency),
+		);
+	}
+	get cachedDeposits() {
+		return queryClient.getQueryData(queryKeys.deposits) || [];
+	}
+	get cachedWithdrawals() {
+		return queryClient.getQueryData(queryKeys.withdrawals) || [];
+	}
+	get cachedTransfers() {
+		return queryClient.getQueryData(queryKeys.transfers) || [];
+	}
 }
 
 //Classes : contact,transfer,group
 
-export class Contact {
+export class Contact extends CacheWrapper {
 	phoneNumber;
 	firstName;
 	lastName;
 	currency;
 
 	constructor(phone, fname, lname, currency) {
+		super();
 		this.phoneNumber = phone;
 		this.firstName = fname;
 		this.lastName = lname;
@@ -52,21 +77,19 @@ export class Contact {
 	}
 
 	save() {
-		if (!contacts.find((e) => e.phoneNumber === this.phoneNumber)) {
-			contacts.push(this);
-			cache.setCache("contacts", contacts);
+		if (!this.cachedContacts.find((e) => e.phoneNumber === this.phoneNumber)) {
 			database.saveContact(this);
 		}
 	}
 
 	get deposits() {
-		return deposits.filter((e) => e.phoneNumber === this.phoneNumber);
+		return this.cachedDeposits.filter((e) => e.phoneNumber === this.phoneNumber);
 	}
 	get totalDeposited() {
 		return this.deposits.reduce(getTotalAmount, 0);
 	}
 	get withdrawals() {
-		return withdrawals.filter((e) => e.phoneNumber === this.phoneNumber);
+		return this.cachedWithdrawals.filter((e) => e.phoneNumber === this.phoneNumber);
 	}
 	get totalWithdrawn() {
 		return this.withdrawals.reduce(getTotalAmount, 0);
@@ -76,13 +99,13 @@ export class Contact {
 	}
 	// receiving === crediting my acc
 	get creditTransactions() {
-		return transfers.filter((e) => e.receiver === this.phoneNumber);
+		return this.cachedTransfers.filter((e) => e.receiver === this.phoneNumber);
 	}
 	get totalReceived() {
 		return this.creditTransactions.reduce(getTotalAmount, 0);
 	}
 	get debitTransactions() {
-		return transfers.filter((e) => e.sender === this.phoneNumber);
+		return this.cachedTransfers.filter((e) => e.sender === this.phoneNumber);
 	}
 	get totalSent() {
 		return this.debitTransactions.reduce(getTotalAmount, 0);
@@ -98,7 +121,7 @@ export class Contact {
 	}
 }
 
-export class Transfer {
+export class Transfer extends CacheWrapper {
 	sender;
 	receiver;
 	amount;
@@ -106,6 +129,7 @@ export class Transfer {
 	date;
 
 	constructor(sender, receiver, amount) {
+		super();
 		this.sender = sender;
 		this.receiver = receiver;
 		this.amount = amount;
@@ -115,22 +139,21 @@ export class Transfer {
 
 	// Firebase response
 	async save() {
-		transfers.push(this);
 		await database.saveTransfer(this);
 	}
 }
 
-export class Deposit {
+export class Deposit extends CacheWrapper {
 	date;
 	phoneNumber;
 	amount;
 	constructor(phone, amount) {
+		super();
 		this.phoneNumber = phone;
 		this.amount = amount;
 		this.date = new Date();
 	}
 	async save() {
-		deposits.push(this);
 		await database.saveDeposit(this);
 	}
 }
@@ -140,7 +163,6 @@ export class Withdrawal extends Deposit {
 		return getTransactionCostForAmount(this.amount);
 	}
 	async save() {
-		withdrawals.push(this);
 		await database.saveWithdrawals(this);
 	}
 }

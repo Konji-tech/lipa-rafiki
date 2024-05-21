@@ -1,4 +1,4 @@
-import { getContacts } from "../utils/cache";
+import { getContacts } from "../utils/finance";
 
 export function Contacts() {
 	const contacts = getContacts();
@@ -19,10 +19,7 @@ export function Contacts() {
 					<tbody className="bg-light-bg">
 						{contacts.map((e, index) => {
 							return (
-								<tr
-									className="border-b-2 border-black/10 last:border-b-0"
-									key={index}
-								>
+								<tr className="border-b-2 border-black/10 last:border-b-0" key={index}>
 									<td className="px-4 py-2">{e.firstName}</td>
 									<td className="px-4 py-2">{e.lastName}</td>
 									<td className="px-4 py-2">{e.phoneNumber}</td>

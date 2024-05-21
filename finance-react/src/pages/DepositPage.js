@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BalanceCard } from "../components/BalanceCard";
 import Button from "../components/custom/Button";
-import * as cache from "../utils/cache";
+import { userPhoneNumber } from "../utils/finance";
 import { Deposit } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -10,7 +10,7 @@ import { toast } from "sonner"; //notification
 import { queryKeys } from "../utils/constants";
 
 export default function DepositPage() {
-	const [phoneNumber, setPhoneNumber] = useState(cache.userPhoneNumber);
+	const [phoneNumber, setPhoneNumber] = useState(userPhoneNumber);
 	const [amount, setAmount] = useState(0);
 
 	const depositsQuery = useQuery({ queryKey: queryKeys.deposits });

@@ -6,15 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "react-router-dom";
 import routes from "./router";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-const queryClient = new QueryClient();
-queryClient.setDefaultOptions({
-	queries: {
-		refetchOnWindowFocus: false,
-		refetchOnMount: false,
-	},
-});
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./utils/network";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BalanceCard } from "../components/BalanceCard";
 import Button from "../components/custom/Button";
-import { getCurrentUserContact, userPhoneNumber } from "../utils/cache";
+import { getCurrentUserContact, userPhoneNumber } from "../utils/finance";
 
 import { Withdrawal } from "../utils/finance";
 import { formatDate, formatRelativeTime } from "../utils/strings";
