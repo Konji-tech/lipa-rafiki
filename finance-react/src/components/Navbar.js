@@ -28,11 +28,15 @@ const links = [
 		route: "/exchange",
 	},
 	{
+		name: "Authorized",
+		icon: "solar:folder-security",
+		route: "/authorized",
+	},
+	{
 		name: "Tests",
 		icon: "solar:bug",
 		route: "/testing",
 	},
-	,
 ];
 
 function NavBar() {

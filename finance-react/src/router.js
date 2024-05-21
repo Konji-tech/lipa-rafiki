@@ -7,6 +7,7 @@ import WalletPage from "./pages/WalletPage";
 import WithdrawPage from "./pages/WithdrawPage";
 import TestPage from "./pages/Testing";
 import ExchangePage from "./pages/ExchangePage";
+import Authorized from "./pages/authorized";
 
 export default createBrowserRouter([
 	{
@@ -19,6 +20,7 @@ export default createBrowserRouter([
 			{ path: "withdraw", element: <WithdrawPage /> },
 			{ path: "exchange", element: <ExchangePage /> },
 			{ path: "testing", element: <TestPage /> },
+			{ path: "authorized", element: <Authorized /> },
 		],
 	},
 ]);
