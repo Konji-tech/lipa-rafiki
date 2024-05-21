@@ -23,7 +23,7 @@ function Authorized() {
 								<h4 class="text-lg">
 									{contact.firstName} {contact.lastName}
 								</h4>
-								<p class="text-lg">KES? {contact.balance}</p>
+								<p class="text-lg">KES {contact.balance}</p>
 								<p class="text-lg">
 									{exchangeQuery.data &&
 										// if rates have loaded, get this contact's converted balance
