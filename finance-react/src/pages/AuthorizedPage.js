@@ -19,7 +19,7 @@ function AuthorizedPage() {
 						const contact = new Contact(e?.phoneNumber, e?.firstName, e?.lastName, e?.currency);
 
 						return (
-							<div className="border-2 border-black bg-white p-4">
+							<div className="border-2 border-black bg-white p-4" key={contact.phoneNumber}>
 								<h4 className="text-lg">
 									{contact.firstName} {contact.lastName}
 								</h4>

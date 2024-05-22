@@ -30,12 +30,12 @@ export function getTransactionCostForAmount(amount) {
 export const userPhoneNumber = "+254711223344";
 
 export function getContacts() {
-	const data = new CacheWrapper().cachedContacts?.filter((e) => e.phoneNumber !== "+254711223344");
+	const data = new CacheWrapper().cachedContacts?.filter((e) => e.phoneNumber !== userPhoneNumber);
 	return data;
 }
 
 export function getCurrentUserContact() {
-	const c = getContacts()?.find((e) => e?.phoneNumber === userPhoneNumber);
+	const c = new CacheWrapper().cachedContacts?.find((e) => e?.phoneNumber === userPhoneNumber);
 	return new Contact(c?.phoneNumber, c?.firstName, c?.lastName, c?.currency);
 }
 

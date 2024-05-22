@@ -20,7 +20,7 @@ export default function SendPage() {
 	const queryClient = useQueryClient();
 
 	const [sendAmount, setAmount] = useState(0);
-	const [receiver, setReceiver] = useState(contacts[0] ? contacts[0].phoneNumber : null);
+	const [receiver, setReceiver] = useState(contacts[0] ? contacts[0].phoneNumber : "");
 
 	function getReceiverData() {
 		return contacts.find((e) => e?.phoneNumber == receiver);
@@ -137,22 +137,22 @@ export default function SendPage() {
 					</span>
 				</div>
 
-				<p className="font-bold italic text-black/50">
+				<div className="font-bold italic text-black/50">
 					<span>Transaction cost :</span>
 					<span>KES {new Transfer(userPhoneNumber, receiver, sendAmount)?.transactionCost}</span>
-				</p>
-				<p>
-					<span>Converted to : </span>
-					{/* Display converted transaction cost */}
-					<span>
-						{exchangeQuery.data &&
-							getReceiverData() &&
-							getForeignTransactionCost(exchangeQuery.data?.rates, getReceiverData()).toLocaleString("en-US", {
-								style: "currency",
-								currency: getReceiverData()?.currency,
-							})}
-					</span>
-				</p>
+					<p>
+						<span>Converted to : </span>
+						{/* Display converted transaction cost */}
+						<span>
+							{exchangeQuery.data &&
+								getReceiverData() &&
+								getForeignTransactionCost(exchangeQuery.data?.rates, getReceiverData()).toLocaleString("en-US", {
+									style: "currency",
+									currency: getReceiverData()?.currency,
+								})}
+						</span>
+					</p>
+				</div>
 
 				<Button type="submit">Initiate transactions</Button>
 			</form>
