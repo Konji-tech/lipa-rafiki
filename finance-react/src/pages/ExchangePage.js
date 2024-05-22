@@ -28,7 +28,7 @@ function ExchangePage() {
 					) : (
 						<tbody>
 							<tr>
-								<td colspan="2">Data not loaded</td>
+								<td colSpan="2">Data not loaded</td>
 							</tr>
 						</tbody>
 					)}

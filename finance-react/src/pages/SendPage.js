@@ -140,18 +140,18 @@ export default function SendPage() {
 				<p className="font-bold italic text-black/50">
 					<span>Transaction cost :</span>
 					<span>KES {new Transfer(userPhoneNumber, receiver, sendAmount)?.transactionCost}</span>
-					<p>
-						<span>Converted to : </span>
-						{/* Display converted transaction cost */}
-						<span>
-							{exchangeQuery.data &&
-								getReceiverData() &&
-								getForeignTransactionCost(exchangeQuery.data?.rates, getReceiverData()).toLocaleString("en-US", {
-									style: "currency",
-									currency: getReceiverData()?.currency,
-								})}
-						</span>
-					</p>
+				</p>
+				<p>
+					<span>Converted to : </span>
+					{/* Display converted transaction cost */}
+					<span>
+						{exchangeQuery.data &&
+							getReceiverData() &&
+							getForeignTransactionCost(exchangeQuery.data?.rates, getReceiverData()).toLocaleString("en-US", {
+								style: "currency",
+								currency: getReceiverData()?.currency,
+							})}
+					</span>
 				</p>
 
 				<Button type="submit">Initiate transactions</Button>

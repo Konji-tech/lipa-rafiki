@@ -2,7 +2,7 @@ import { queryKeys } from "../utils/constants";
 import { useQuery } from "@tanstack/react-query";
 import { Contact } from "../utils/finance";
 
-function Authorized() {
+function AuthorizedPage() {
 	const exchangeQuery = useQuery({ queryKey: queryKeys.exchange });
 	const contactsQuery = useQuery({ queryKey: queryKeys.contacts });
 
@@ -41,4 +41,4 @@ function Authorized() {
 	);
 }
 
-export default Authorized;
+export default AuthorizedPage;

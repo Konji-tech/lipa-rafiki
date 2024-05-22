@@ -2,41 +2,13 @@ import { Link, useLocation, useNavigation } from "react-router-dom";
 //import { twMerge } from "tw-merge";
 
 const links = [
-	{
-		name: "My Wallet",
-		icon: "solar:wallet-2",
-		route: "/",
-	},
-	{
-		name: "Deposit",
-		icon: "solar:cardholder",
-		route: "/deposit",
-	},
-	{
-		name: "Send Money",
-		icon: "solar:card-send",
-		route: "/send",
-	},
-	{
-		name: "Withdraw Cash",
-		icon: "solar:card-recive",
-		route: "/withdraw",
-	},
-	{
-		name: "Exchange",
-		icon: "solar:graph-up",
-		route: "/exchange",
-	},
-	{
-		name: "Authorized",
-		icon: "solar:folder-security",
-		route: "/authorized",
-	},
-	{
-		name: "Tests",
-		icon: "solar:bug",
-		route: "/testing",
-	},
+	{ id: 0, name: "My Wallet", icon: "solar:wallet-2", route: "/" },
+	{ id: 1, name: "Deposit", icon: "solar:cardholder", route: "/deposit" },
+	{ id: 2, name: "Send Money", icon: "solar:card-send", route: "/send" },
+	{ id: 3, name: "Withdraw Cash", icon: "solar:card-recive", route: "/withdraw" },
+	{ id: 4, name: "Exchange", icon: "solar:graph-up", route: "/exchange" },
+	{ id: 5, name: "Authorized", icon: "solar:folder-security", route: "/authorized" },
+	{ id: 6, name: "Tests", icon: "solar:bug", route: "/testing" },
 ];
 
 function NavBar() {
