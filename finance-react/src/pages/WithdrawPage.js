@@ -30,12 +30,12 @@ export default function WithdrawPage() {
 		// validate available amount
 
 		if (withdrawAmount <= 0) {
-			alert("Please enter a valid amount");
+			toast.error("Please enter a valid amount");
 			return;
 		}
 
 		if (withdrawAmount > user.balance) {
-			alert("Your balance is insufficient");
+			toast.error("Your balance is insufficient");
 			return;
 		}
 
@@ -98,8 +98,8 @@ function WithdrawalCards({ withdrawals }) {
 
 			<section className="flex flex-col rounded-xl border-2 border-black bg-light-bg p-4">
 				{withdrawals
-					.filter((item) => {
-						return item.amount.toString().includes(searchTerm);
+					?.filter((item) => {
+						return item.amount.toString()?.includes(searchTerm);
 					})
 					.sort((a, b) => a?.date < b?.date)
 					.map((withdrawal, index) => {
